@@ -98,6 +98,12 @@ Copy author fields from the [camera-ready PDF](paper/hotinfra26-final71.pdf) whe
 
 ---
 
+## Acknowledgments
+
+Supported by the [**Google Gemini Academic Program**](https://ai.google.dev/gemini-api/docs/gemini-for-research) (Gemini API credits for research evaluation).
+
+---
+
 <p align="center">
   <a href="https://xuanmiaog.github.io/InfraBench/">Site</a>
   ·
