@@ -14,6 +14,10 @@
   &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="https://hotinfra.org/2026/papers/hotinfra26-final71.pdf"><strong>Paper (PDF) →</strong></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="https://hotinfra.org/2026/"><strong>HotInfra '26 →</strong></a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en"><strong>Scholar →</strong></a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="CONTRIBUTING.md"><strong>Contribute a task →</strong></a>
 </p>
 
@@ -84,17 +88,18 @@ InfraBench/
 
 ## 04 &nbsp; Citation
 
+Paper: *[Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf)* — [HotInfra '26](https://hotinfra.org/2026/) · [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en) · [Project site](https://xuanmiaog.github.io/InfraBench/)
+
 ```bibtex
-@inproceedings{infrabench2026,
-  title     = {InfraBench: A Benchmark for Infrastructure Agents},
+@inproceedings{gao2026infrabench,
+  title     = {Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk},
+  author    = {Gao, Yuan and Yang, Zeren and Li, Junnan and Zhong, Shawn (Wanxiang) and Dajani, Ahmed and Zheng, Mai and Arpaci-Dusseau, Andrea and Arpaci-Dusseau, Remzi},
   booktitle = {Workshop on Hot Topics in System Infrastructure (HotInfra)},
   year      = {2026},
   note      = {Co-located with ISCA '26},
   url       = {https://hotinfra.org/2026/papers/hotinfra26-final71.pdf}
 }
 ```
-
-Copy author fields from the [camera-ready PDF](paper/hotinfra26-final71.pdf) when citing formally.
 
 ---
 
@@ -110,6 +115,10 @@ Copy author fields from the [camera-ready PDF](paper/hotinfra26-final71.pdf) whe
   <a href="https://xuanmiaog.github.io/InfraBench/">Site</a>
   ·
   <a href="https://hotinfra.org/2026/papers/hotinfra26-final71.pdf">Paper</a>
+  ·
+  <a href="https://hotinfra.org/2026/">HotInfra</a>
+  ·
+  <a href="https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en">Scholar</a>
   ·
   <a href="CONTRIBUTING.md">Contribute</a>
   ·
