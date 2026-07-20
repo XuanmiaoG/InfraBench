@@ -1,7 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="InfraBench  A benchmark for infrastructure agents">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img">
   <rect width="1200" height="420" fill="#FAF9F6"/>
-
-  <!-- logo mark -->
   <g transform="translate(64,48)">
     <rect x="0" y="2" width="36" height="5" rx="0.8" fill="#1C1A16" opacity="0.9"/>
     <rect x="0" y="12" width="36" height="5" rx="0.8" fill="#1C1A16" opacity="0.55"/>
@@ -9,55 +7,38 @@
     <rect x="19.5" y="24" width="16.5" height="5" rx="0.8" fill="#B0321C" opacity="0.85"/>
     <rect x="0" y="32" width="36" height="5" rx="0.8" fill="#1C1A16" opacity="0.3"/>
   </g>
-  <text x="116" y="78" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="600" fill="#1C1A16">InfraBench</text>
-
-  <!-- eyebrow -->
-  <text x="64" y="140" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" letter-spacing="2.2" fill="#B0321C">HOTINFRA '26  CO-LOCATED WITH ISCA '26 · RALEIGH, NC</text>
-
-  <!-- headline -->
-  <text x="64" y="200" font-family="Georgia, 'Times New Roman', serif" font-size="48" font-weight="600" fill="#1C1A16">A benchmark for</text>
-  <text x="64" y="254" font-family="Georgia, 'Times New Roman', serif" font-size="48" font-weight="600" fill="#1C1A16">infrastructure agents.</text>
-
-  <!-- subcopy -->
-  <text x="64" y="300" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="18" fill="#5D5850">Twelve real operational incidents  from IPMI power recovery to</text>
-  <text x="64" y="326" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="18" fill="#5D5850">silent data corruption  across hardware through user applications.</text>
-
-  <!-- primary CTA chip -->
+  <text x="116" y="78" font-family="Georgia, serif" font-size="28" font-weight="600" fill="#1C1A16">InfraBench</text>
+  <text x="64" y="140" font-family="Consolas, monospace" font-size="13" letter-spacing="2.2" fill="#B0321C">HOTINFRA '26 - CO-LOCATED WITH ISCA '26 - RALEIGH, NC</text>
+  <text x="64" y="200" font-family="Georgia, serif" font-size="48" font-weight="600" fill="#1C1A16">A benchmark for</text>
+  <text x="64" y="254" font-family="Georgia, serif" font-size="48" font-weight="600" fill="#1C1A16">infrastructure agents.</text>
+  <text x="64" y="300" font-family="Segoe UI, sans-serif" font-size="18" fill="#5D5850">Twelve real operational incidents - from IPMI power recovery to</text>
+  <text x="64" y="326" font-family="Segoe UI, sans-serif" font-size="18" fill="#5D5850">silent data corruption - across hardware through user applications.</text>
   <rect x="64" y="356" width="188" height="36" rx="2" fill="#B0321C"/>
-  <text x="158" y="379" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="500" fill="#FFFFFF">View leaderboard “</text>
-
-  <!-- secondary links -->
-  <text x="278" y="379" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#5D5850">Paper (PDF) ’</text>
-  <text x="430" y="379" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#5D5850">Contribute a task ’</text>
-
-  <!-- right rail: coverage -->
+  <text x="158" y="379" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#FFFFFF">View leaderboard</text>
+  <text x="278" y="379" font-family="Consolas, monospace" font-size="13" fill="#5D5850">Paper (PDF)</text>
+  <text x="430" y="379" font-family="Consolas, monospace" font-size="13" fill="#5D5850">Contribute a task</text>
   <line x1="780" y1="120" x2="780" y2="380" stroke="#E5E2D9" stroke-width="1"/>
-  <text x="808" y="140" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" letter-spacing="1.8" fill="#918B7F">TASK COVERAGE BY LAYER</text>
-
-  <!-- L4 -->
-  <text x="808" y="178"><tspan font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#B0321C">L4</tspan><tspan font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#1C1A16">  User Applications</tspan></text>
-  <text x="1120" y="178" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#918B7F">3 tasks</text>
+  <text x="808" y="140" font-family="Consolas, monospace" font-size="11" letter-spacing="1.8" fill="#918B7F">TASK COVERAGE BY LAYER</text>
+  <text x="808" y="178" font-family="Consolas, monospace" font-size="13" fill="#B0321C">L4</text>
+  <text x="838" y="178" font-family="Consolas, monospace" font-size="13" fill="#1C1A16">User Applications</text>
+  <text x="1120" y="178" text-anchor="end" font-family="Consolas, monospace" font-size="12" fill="#918B7F">3 tasks</text>
   <rect x="808" y="188" width="312" height="4" fill="#F1EFE9"/>
   <rect x="808" y="188" width="134" height="4" fill="#1C1A16" opacity="0.75"/>
-
-  <!-- L3 -->
-  <text x="808" y="228"><tspan font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#B0321C">L3</tspan><tspan font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#1C1A16">  Distributed Systems</tspan></text>
-  <text x="1120" y="228" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#918B7F">7 tasks</text>
+  <text x="808" y="228" font-family="Consolas, monospace" font-size="13" fill="#B0321C">L3</text>
+  <text x="838" y="228" font-family="Consolas, monospace" font-size="13" fill="#1C1A16">Distributed Systems</text>
+  <text x="1120" y="228" text-anchor="end" font-family="Consolas, monospace" font-size="12" fill="#918B7F">7 tasks</text>
   <rect x="808" y="238" width="312" height="4" fill="#F1EFE9"/>
   <rect x="808" y="238" width="312" height="4" fill="#1C1A16" opacity="0.75"/>
-
-  <!-- L2 -->
-  <text x="808" y="278"><tspan font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#B0321C">L2</tspan><tspan font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#1C1A16">  Local Systems</tspan></text>
-  <text x="1120" y="278" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#918B7F">1 task</text>
+  <text x="808" y="278" font-family="Consolas, monospace" font-size="13" fill="#B0321C">L2</text>
+  <text x="838" y="278" font-family="Consolas, monospace" font-size="13" fill="#1C1A16">Local Systems</text>
+  <text x="1120" y="278" text-anchor="end" font-family="Consolas, monospace" font-size="12" fill="#918B7F">1 task</text>
   <rect x="808" y="288" width="312" height="4" fill="#F1EFE9"/>
   <rect x="808" y="288" width="45" height="4" fill="#1C1A16" opacity="0.75"/>
-
-  <!-- L1 -->
-  <text x="808" y="328"><tspan font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#B0321C">L1</tspan><tspan font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#1C1A16">  Hardware</tspan></text>
-  <text x="1120" y="328" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#918B7F">1 task</text>
+  <text x="808" y="328" font-family="Consolas, monospace" font-size="13" fill="#B0321C">L1</text>
+  <text x="838" y="328" font-family="Consolas, monospace" font-size="13" fill="#1C1A16">Hardware</text>
+  <text x="1120" y="328" text-anchor="end" font-family="Consolas, monospace" font-size="12" fill="#918B7F">1 task</text>
   <rect x="808" y="338" width="312" height="4" fill="#F1EFE9"/>
   <rect x="808" y="338" width="45" height="4" fill="#1C1A16" opacity="0.75"/>
-
   <line x1="808" y1="360" x2="1120" y2="360" stroke="#E5E2D9" stroke-width="1"/>
-  <text x="808" y="382" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#5D5850"><tspan font-weight="700" fill="#1C1A16">12</tspan> tasks   <tspan font-weight="700" fill="#1C1A16">11</tspan> configs   <tspan font-weight="700" fill="#1C1A16">3</tspan> backends</text>
+  <text x="808" y="382" font-family="Consolas, monospace" font-size="12" fill="#5D5850">12 tasks   11 configs   3 backends</text>
 </svg>

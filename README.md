@@ -1,9 +1,9 @@
-<!-- Hero — mirrors the project site first viewport (SVG, GitHub-safe HTML) -->
+<!-- Hero image (PNG — GitHub README does not reliably render SVG) -->
 <p align="center">
   <a href="https://xuanmiaog.github.io/InfraBench/">
     <img
-      src="docs/assets/readme-hero.svg"
-      alt="InfraBench — A benchmark for infrastructure agents. HotInfra '26, co-located with ISCA '26, Raleigh, NC. 12 tasks · 11 configs · 3 backends."
+      src="docs/assets/readme-hero.png"
+      alt="InfraBench — A benchmark for infrastructure agents"
       width="100%"
     />
   </a>
@@ -19,11 +19,10 @@
 
 <br />
 
-<!-- Compare strip from site voice -->
 <p align="center">
   <img
-    src="docs/assets/readme-compare.svg"
-    alt="Typical agent benches use containers and unit tests. InfraBench uses Docker, KVM, and CloudLab with fault injection across L1–L4."
+    src="docs/assets/readme-compare.png"
+    alt="Typical agent benches vs InfraBench"
     width="100%"
   />
 </p>
@@ -34,63 +33,19 @@
 
 This is the **public** InfraBench surface. Full task directories (instruction, environment, verifier) — the canonical package format. The evaluation runtime (**Syscraft**) is **not open-sourced here yet**.
 
-<table>
-  <thead>
-    <tr>
-      <th align="left">Task</th>
-      <th align="center">Layer</th>
-      <th align="center">Diff.</th>
-      <th align="left">Backend</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><a href="tasks/hello-world/"><code>hello-world</code></a></td>
-      <td align="center">—</td>
-      <td align="center">Easy</td>
-      <td>Docker · start here</td>
-    </tr>
-    <tr>
-      <td><a href="tasks/ipmi-node-power-recovery/"><code>ipmi-node-power-recovery</code></a></td>
-      <td align="center"><code>L1</code></td>
-      <td align="center">Easy</td>
-      <td>CloudLab</td>
-    </tr>
-    <tr>
-      <td><a href="tasks/cassandra-nic-split-brain/"><code>cassandra-nic-split-brain</code></a></td>
-      <td align="center"><code>L2</code></td>
-      <td align="center">Medium</td>
-      <td>CloudLab</td>
-    </tr>
-    <tr>
-      <td><a href="tasks/cassandra-dead-node-removal/"><code>cassandra-dead-node-removal</code></a></td>
-      <td align="center"><code>L3</code></td>
-      <td align="center">Medium</td>
-      <td>CloudLab</td>
-    </tr>
-    <tr>
-      <td><a href="tasks/vm-ceph-bootstrap/"><code>vm-ceph-bootstrap</code></a></td>
-      <td align="center"><code>L3</code></td>
-      <td align="center">Hard</td>
-      <td>VM cluster</td>
-    </tr>
-    <tr>
-      <td><a href="tasks/db-wal-recovery/"><code>db-wal-recovery</code></a></td>
-      <td align="center"><code>L4</code></td>
-      <td align="center">Hard</td>
-      <td>Container</td>
-    </tr>
-  </tbody>
-</table>
+| Task | Layer | Diff. | Backend |
+|------|:-----:|:-----:|---------|
+| [`hello-world`](tasks/hello-world/) | — | Easy | Docker · start here |
+| [`ipmi-node-power-recovery`](tasks/ipmi-node-power-recovery/) | L1 | Easy | CloudLab |
+| [`cassandra-nic-split-brain`](tasks/cassandra-nic-split-brain/) | L2 | Medium | CloudLab |
+| [`cassandra-dead-node-removal`](tasks/cassandra-dead-node-removal/) | L3 | Medium | CloudLab |
+| [`vm-ceph-bootstrap`](tasks/vm-ceph-bootstrap/) | L3 | Hard | VM cluster |
+| [`db-wal-recovery`](tasks/db-wal-recovery/) | L4 | Hard | Container |
 
-<p>
-  More of the 12-task HotInfra suite will land here over time ·
-  <a href="tasks/README.md">tasks/README.md</a>
-</p>
+More of the 12-task HotInfra suite will land here over time · [`tasks/README.md`](tasks/README.md)
 
 <details>
-  <summary><strong>Task package shape</strong></summary>
-  <br />
+<summary><strong>Task package shape</strong></summary>
 
 ```
 my-task/
@@ -101,12 +56,8 @@ my-task/
 └── tests/             # verifier → /logs/verifier/reward.{txt,json}
 ```
 
-  <p>
-    Authoring:
-    <a href="CONTRIBUTING.md">CONTRIBUTING.md</a>
-    ·
-    <a href="AGENTS.md">AGENTS.md</a>
-  </p>
+Authoring: [CONTRIBUTING.md](CONTRIBUTING.md) · [AGENTS.md](AGENTS.md)
+
 </details>
 
 ---
@@ -116,23 +67,18 @@ my-task/
 End-to-end runs use **Syscraft** (provisioning, fault scenarios, agent adapters).  
 **That harness is not published in this repository yet.**
 
-<ul>
-  <li>Treat these tasks as <strong>layout + verifier references</strong> today.</li>
-  <li><code>hello-world</code> is the on-ramp for a future lightweight Docker runner.</li>
-  <li>Need eval access?
-    <a href="https://github.com/XuanmiaoG/InfraBench/issues">Open an issue</a>
-    or contact the authors in the paper.
-  </li>
-</ul>
+- Treat these tasks as **layout + verifier references** today.
+- `hello-world` is the on-ramp for a future lightweight Docker runner.
+- Need eval access? [Open an issue](https://github.com/XuanmiaoG/InfraBench/issues) or contact the authors in the paper.
 
-<pre>
+```
 InfraBench/
 ├── tasks/           curated packages
 ├── CONTRIBUTING.md  write a task
 ├── AGENTS.md        agent authoring notes
 ├── paper/           HotInfra '26 PDF
 └── docs/            project website (GitHub Pages)
-</pre>
+```
 
 ---
 
@@ -148,7 +94,7 @@ InfraBench/
 }
 ```
 
-Copy author fields from the <a href="paper/hotinfra26-final71.pdf">camera-ready PDF</a> when citing formally.
+Copy author fields from the [camera-ready PDF](paper/hotinfra26-final71.pdf) when citing formally.
 
 ---
 
