@@ -100,8 +100,8 @@ Copy author fields from the [camera-ready PDF](paper/hotinfra26-final71.pdf) whe
 
 ## Acknowledgments
 
-- **Task interviews:** [CHTC](https://chtc.cs.wisc.edu/) (UW–Madison) · [DoIT](https://it.wisc.edu/about/division-of-information-technology/) (UW–Madison Division of Information Technology)
-- **Compute:** [CloudLab](https://www.cloudlab.us/)
+- **Task interviews:** [CHTC](https://chtc.cs.wisc.edu/) · [DoIT](https://it.wisc.edu/about/division-of-information-technology/) (UW–Madison)
+- **Compute:** [CloudLab](https://www.cloudlab.us/) · [ARA Wireless Living Lab](https://arawireless.org/)
 - **API credits:** [Google Gemini Academic Program](https://ai.google.dev/gemini-api/docs/gemini-for-research)
 
 ---
