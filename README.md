@@ -1,41 +1,45 @@
-<!-- Hero image (PNG — GitHub README does not reliably render SVG) -->
+<!-- Hero (PNG — GitHub README does not reliably render SVG) -->
 <p align="center">
   <a href="https://xuanmiaog.github.io/InfraBench/">
     <img
       src="docs/assets/readme-hero.png"
-      alt="InfraBench — A benchmark for infrastructure agents"
+      alt="InfraBench — A benchmark for infrastructure agents (HotInfra '26)"
       width="100%"
     />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://xuanmiaog.github.io/InfraBench/"><strong>View leaderboard ↓</strong></a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="https://hotinfra.org/2026/papers/hotinfra26-final71.pdf"><strong>Paper (PDF) →</strong></a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="https://hotinfra.org/2026/"><strong>HotInfra '26 →</strong></a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en"><strong>Scholar →</strong></a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="CONTRIBUTING.md"><strong>Contribute a task →</strong></a>
+  <a href="https://xuanmiaog.github.io/InfraBench/"><strong>Leaderboard</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://hotinfra.org/2026/papers/hotinfra26-final71.pdf"><strong>Paper (PDF)</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://hotinfra.org/2026/"><strong>HotInfra '26</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en"><strong>Scholar</strong></a>
+  &nbsp;·&nbsp;
+  <a href="CONTRIBUTING.md"><strong>Contribute</strong></a>
 </p>
 
 <br />
 
+**InfraBench** evaluates AI agents on realistic infrastructure incidents across the full stack (L1 hardware → L4 applications) and the operational lifecycle — durability, invariants, cleanup, and risk — not just binary pass/fail.
+
+Paper: *[Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf)* · HotInfra '26 (co-located with ISCA '26)
+
 <p align="center">
   <img
     src="docs/assets/readme-compare.png"
-    alt="Typical agent benches vs InfraBench"
+    alt="Typical agent benches stop at pass/fail; InfraBench scores layers, lifecycle, and risk"
     width="100%"
   />
 </p>
 
 ---
 
-## 02 &nbsp; Curated tasks in this repo
+## 01 &nbsp; What's in this repo
 
-This is the **public** InfraBench surface. Full task directories (instruction, environment, verifier) — the canonical package format. The evaluation runtime (**Syscraft**) is **not open-sourced here yet**.
+This is the **public** InfraBench surface: curated task packages (instruction, environment, verifier). The evaluation runtime (**Syscraft**) is **not open-sourced here yet**.
 
 | Task | Layer | Diff. | Backend |
 |------|:-----:|:-----:|---------|
@@ -66,14 +70,14 @@ Authoring: [CONTRIBUTING.md](CONTRIBUTING.md) · [AGENTS.md](AGENTS.md)
 
 ---
 
-## 03 &nbsp; Evaluation runtime
+## 02 &nbsp; Evaluation runtime
 
 End-to-end runs use **Syscraft** (provisioning, fault scenarios, agent adapters).  
 **That harness is not published in this repository yet.**
 
 - Treat these tasks as **layout + verifier references** today.
 - `hello-world` is the on-ramp for a future lightweight Docker runner.
-- Need eval access? [Open an issue](https://github.com/XuanmiaoG/InfraBench/issues) or contact the authors in the paper.
+- Need eval access? [Open an issue](https://github.com/XuanmiaoG/InfraBench/issues) or contact the authors via the paper / Scholar.
 
 ```
 InfraBench/
@@ -86,9 +90,7 @@ InfraBench/
 
 ---
 
-## 04 &nbsp; Citation
-
-Paper: *[Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf)* — [HotInfra '26](https://hotinfra.org/2026/) · [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en) · [Project site](https://xuanmiaog.github.io/InfraBench/)
+## 03 &nbsp; Citation
 
 ```bibtex
 @inproceedings{gao2026infrabench,
@@ -101,13 +103,15 @@ Paper: *[Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifec
 }
 ```
 
+[Project site](https://xuanmiaog.github.io/InfraBench/) · [PDF](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf) · [HotInfra '26](https://hotinfra.org/2026/) · [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en)
+
 ---
 
 ## Acknowledgments
 
 - **Task interviews:** [CHTC](https://chtc.cs.wisc.edu/) · [DoIT](https://it.wisc.edu/about/division-of-information-technology/) · [ARA Wireless Living Lab](https://arawireless.org/)
 - **Compute:** [CloudLab](https://www.cloudlab.us/)
-- **API credits:** [Google Gemini Academic Program](https://ai.google.dev/gemini-api/docs/gemini-for-research) (Gemini API credits for research evaluation)
+- **API credits:** [Google Gemini Academic Program](https://ai.google.dev/gemini-api/docs/gemini-for-research)
 
 ---
 

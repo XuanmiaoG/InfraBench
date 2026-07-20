@@ -1,16 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img">
-  <rect width="1200" height="280" fill="#FAF9F6"/>
-  <text x="40" y="40" font-family="Consolas, monospace" font-size="12" letter-spacing="2" fill="#918B7F">01  WHAT MAKES IT DIFFERENT</text>
-  <text x="40" y="78" font-family="Georgia, serif" font-size="28" font-weight="600" fill="#1C1A16">Operate real systems - not just edit files.</text>
-  <rect x="40" y="110" width="540" height="140" fill="#FFFFFF" stroke="#E5E2D9"/>
-  <text x="64" y="144" font-family="Consolas, monospace" font-size="12" letter-spacing="1.5" fill="#918B7F">TYPICAL AGENT BENCH</text>
-  <text x="64" y="178" font-family="Segoe UI, sans-serif" font-size="16" fill="#5D5850">Container / repo checkout</text>
-  <text x="64" y="204" font-family="Segoe UI, sans-serif" font-size="16" fill="#5D5850">Static unit tests</text>
-  <text x="64" y="230" font-family="Segoe UI, sans-serif" font-size="16" fill="#5D5850">App / code only</text>
-  <rect x="620" y="110" width="540" height="140" fill="#FFFFFF" stroke="#E5E2D9"/>
-  <rect x="620" y="110" width="3" height="140" fill="#B0321C"/>
-  <text x="648" y="144" font-family="Consolas, monospace" font-size="12" letter-spacing="1.5" fill="#B0321C">INFRABENCH</text>
-  <text x="648" y="178" font-family="Segoe UI, sans-serif" font-size="16" fill="#1C1A16">Docker / KVM / CloudLab bare metal</text>
-  <text x="648" y="204" font-family="Segoe UI, sans-serif" font-size="16" fill="#1C1A16">Fault injection, drift, corruption</text>
-  <text x="648" y="230" font-family="Segoe UI, sans-serif" font-size="16" fill="#1C1A16">L1 to L4 infrastructure layers</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="Beyond pass/fail: InfraBench evaluates layers and lifecycle">
+  <rect width="1200" height="420" fill="#FAF9F6"/>
+
+  <!-- Section label — matches site mono eyebrow -->
+  <text x="48" y="42" font-family="IBM Plex Mono, Consolas, monospace" font-size="11" letter-spacing="2.4" fill="#918B7F">BEYOND PASS / FAIL</text>
+  <text x="48" y="78" font-family="IBM Plex Serif, Georgia, serif" font-size="26" font-weight="600" fill="#1C1A16">What InfraBench scores — aligned with the paper &amp; site.</text>
+  <text x="48" y="106" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="14" fill="#5D5850">Typical agent benches stop at task completion. InfraBench checks the full stack and the operational aftermath.</text>
+
+  <!-- Divider -->
+  <line x1="48" y1="128" x2="1152" y2="128" stroke="#E5E2D9" stroke-width="1"/>
+
+  <!-- LEFT: Typical -->
+  <text x="48" y="162" font-family="IBM Plex Mono, Consolas, monospace" font-size="11" letter-spacing="1.8" fill="#918B7F">TYPICAL AGENT BENCH</text>
+  <text x="48" y="198" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#5D5850">Repo / container checkout</text>
+  <text x="48" y="228" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#5D5850">Unit tests · binary pass/fail</text>
+  <text x="48" y="258" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#5D5850">App &amp; code scope only</text>
+  <text x="48" y="288" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#5D5850">No durable-state or cleanup checks</text>
+
+  <!-- Vertical rule -->
+  <line x1="520" y1="148" x2="520" y2="310" stroke="#E5E2D9" stroke-width="1"/>
+
+  <!-- RIGHT: InfraBench accent bar (site left-rule language, not a card) -->
+  <rect x="556" y="148" width="3" height="162" fill="#B0321C"/>
+  <text x="576" y="162" font-family="IBM Plex Mono, Consolas, monospace" font-size="11" letter-spacing="1.8" fill="#B0321C">INFRABENCH</text>
+  <text x="576" y="198" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#1C1A16">Docker · KVM · CloudLab bare metal</text>
+  <text x="576" y="228" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#1C1A16">Fine-grained verifier · risk-aware scoring</text>
+  <text x="576" y="258" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#1C1A16">L1 Hardware → L4 User Applications</text>
+  <text x="576" y="288" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#1C1A16">Durability · invariants · cleanup · side effects</text>
+
+  <!-- Bottom: layer strip matching site hero coverage -->
+  <line x1="48" y1="328" x2="1152" y2="328" stroke="#E5E2D9" stroke-width="1"/>
+  <text x="48" y="358" font-family="IBM Plex Mono, Consolas, monospace" font-size="11" letter-spacing="1.8" fill="#918B7F">STACK COVERAGE</text>
+
+  <text x="48" y="392" font-family="IBM Plex Mono, Consolas, monospace" font-size="13" fill="#B0321C">L1</text>
+  <text x="78" y="392" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="14" fill="#1C1A16">Hardware</text>
+
+  <text x="220" y="392" font-family="IBM Plex Mono, Consolas, monospace" font-size="13" fill="#B0321C">L2</text>
+  <text x="250" y="392" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="14" fill="#1C1A16">Local Systems</text>
+
+  <text x="420" y="392" font-family="IBM Plex Mono, Consolas, monospace" font-size="13" fill="#B0321C">L3</text>
+  <text x="450" y="392" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="14" fill="#1C1A16">Distributed Systems</text>
+
+  <text x="680" y="392" font-family="IBM Plex Mono, Consolas, monospace" font-size="13" fill="#B0321C">L4</text>
+  <text x="710" y="392" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="14" fill="#1C1A16">User Applications</text>
+
+  <text x="1152" y="392" text-anchor="end" font-family="IBM Plex Mono, Consolas, monospace" font-size="12" fill="#918B7F">12 seed tasks · HotInfra '26</text>
 </svg>
