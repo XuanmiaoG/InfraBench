@@ -9,9 +9,6 @@ node_modules/
 *.log
 .env
 .env.*
-
-.env
 *.pem
 *.key
 credentials*
-
