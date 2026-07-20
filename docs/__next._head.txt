@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[97367,["/InfraBench/next/static/chunks/1expjdtwkfkju.js","/InfraBench/next/static/chunks/1-8s9_t85wwr4.js"],"ViewportBoundary"]
+3:I[97367,["/InfraBench/next/static/chunks/1expjdtwkfkju.js","/InfraBench/next/static/chunks/1-8s9_t85wwr4.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[27201,["/InfraBench/next/static/chunks/1expjdtwkfkju.js","/InfraBench/next/static/chunks/1-8s9_t85wwr4.js"],"IconMark"]
+0:{"rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"InfraBench - Infrastructure Agent Benchmark"}],["$","meta","1",{"name":"description","content":"Evaluating Infrastructure Agents Across the Full Stack and Operational Lifecycle. HotInfra '26, co-located with ISCA '26."}],["$","link","2",{"rel":"icon","href":"/InfraBench/logo.svg","type":"image/svg+xml"}],["$","link","3",{"rel":"apple-touch-icon","href":"/InfraBench/logo.svg","type":"image/svg+xml"}],["$","$L5","4",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"bCbUX8NmGJD7yFT-tY0qm"}
