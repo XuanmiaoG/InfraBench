@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-label="InfraBench vs typical agent benchmarks">
+  <rect width="1200" height="280" fill="#FAF9F6"/>
+  <text x="40" y="40" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" letter-spacing="2" fill="#918B7F">01  WHAT MAKES IT DIFFERENT</text>
+  <text x="40" y="78" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="600" fill="#1C1A16">Operate real systems  not just edit files.</text>
+
+  <!-- left card -->
+  <rect x="40" y="110" width="540" height="140" fill="#FFFFFF" stroke="#E5E2D9"/>
+  <text x="64" y="144" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" letter-spacing="1.5" fill="#918B7F">TYPICAL AGENT BENCH</text>
+  <text x="64" y="178" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" fill="#5D5850">Container / repo checkout</text>
+  <text x="64" y="204" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" fill="#5D5850">Static unit tests</text>
+  <text x="64" y="230" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" fill="#5D5850">App / code only</text>
+
+  <!-- right card with left accent rule -->
+  <rect x="620" y="110" width="540" height="140" fill="#FFFFFF" stroke="#E5E2D9"/>
+  <rect x="620" y="110" width="3" height="140" fill="#B0321C"/>
+  <text x="648" y="144" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" letter-spacing="1.5" fill="#B0321C">INFRABENCH</text>
+  <text x="648" y="178" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" fill="#1C1A16">Docker · KVM · CloudLab bare metal</text>
+  <text x="648" y="204" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" fill="#1C1A16">Fault injection, drift, corruption</text>
+  <text x="648" y="230" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" fill="#1C1A16">L1 ’ L4 infrastructure layers</text>
+</svg>
