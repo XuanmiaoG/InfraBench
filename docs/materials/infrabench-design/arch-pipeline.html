@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>InfraBench — Pipeline Architecture</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html, body { height: 100%; }
+  body { overflow: hidden; font-size: clamp(11px, 0.85vw, 13px); }
+  .planned { border-style: dashed; border-color: rgb(251 191 36); background: rgb(255 251 235); }
+  .planned-chip { background: rgb(254 243 199); color: rgb(146 64 14); font-weight:600; }
+  .layer-tile { background: linear-gradient(90deg, rgb(238 242 255), rgb(224 231 255)); }
+  code.path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85em; color: rgb(71 85 105); }
+  .arrow { stroke: rgb(99 102 241); stroke-width: 2; fill: none; marker-end: url(#ah); }
+  @media print { @page { size: landscape; margin: 0.4in; } body { overflow: visible; } }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900 h-screen flex flex-col">
+
+<!-- top band -->
+<header class="px-5 py-2 flex items-center justify-between border-b border-slate-200 bg-white shrink-0">
+  <div class="flex items-baseline gap-3">
+    <span class="text-lg font-bold tracking-tight">InfraBench</span>
+    <span class="text-slate-500">Pipeline Architecture</span>
+  </div>
+  <nav class="text-xs space-x-3 text-slate-600">
+    <span class="font-semibold text-slate-900">Pipeline</span>
+    <a href="arch-concentric.html" class="hover:text-indigo-700">Concentric</a>
+    <a href="arch-bands.html" class="hover:text-indigo-700">Bands</a>
+    <a href="arch-paper.html" class="hover:text-indigo-700">Paper</a>
+    <a href="index.html" class="hover:text-indigo-700">Docs ↗</a>
+  </nav>
+</header>
+
+<!-- main canvas -->
+<main class="flex-1 grid grid-cols-[18%_1fr] gap-3 p-3 overflow-hidden">
+
+  <!-- L1–L6 stack column -->
+  <aside class="rounded-lg border border-slate-200 bg-white p-2 flex flex-col gap-1.5 overflow-hidden">
+    <div class="text-[10px] uppercase tracking-wider text-slate-500 px-1">Stack (L1–L6)</div>
+    <div class="layer-tile rounded px-2 py-1.5 border border-indigo-100 flex justify-between"><span class="font-semibold">L6 Service</span><span class="text-[10px] text-slate-500">Container</span></div>
+    <div class="layer-tile rounded px-2 py-1.5 border border-indigo-100 flex justify-between"><span class="font-semibold">L5 Platform</span><span class="text-[10px] text-slate-500">Container/K8s</span></div>
+    <div class="layer-tile rounded px-2 py-1.5 border border-indigo-100 flex justify-between"><span class="font-semibold">L4 Storage</span><span class="text-[10px] text-slate-500">Distributed</span></div>
+    <div class="layer-tile rounded px-2 py-1.5 border border-indigo-100 flex justify-between"><span class="font-semibold">L3 Kernel</span><span class="text-[10px] text-slate-500">VM/Bare</span></div>
+    <div class="layer-tile rounded px-2 py-1.5 border border-indigo-100 flex justify-between"><span class="font-semibold">L2 Virt</span><span class="text-[10px] text-slate-500">VM</span></div>
+    <div class="layer-tile rounded px-2 py-1.5 border border-indigo-100 flex justify-between"><span class="font-semibold">L1 Hardware</span><span class="text-[10px] text-slate-500">Bare metal</span></div>
+    <div class="mt-auto text-[10px] text-slate-500 px-1 leading-tight">Higher layers depend on every layer below. Faults can be injected at any level.</div>
+  </aside>
+
+  <!-- right side: pipeline + bottom strip -->
+  <div class="grid grid-rows-[1fr_auto] gap-3 overflow-hidden">
+
+    <!-- pipeline row -->
+    <section class="relative grid grid-cols-4 gap-3 overflow-hidden">
+      <!-- arrows overlay -->
+      <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 100" preserveAspectRatio="none">
+        <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="rgb(99 102 241)"/></marker></defs>
+        <line class="arrow" x1="250" y1="50" x2="252" y2="50"/>
+        <line class="arrow" x1="500" y1="50" x2="502" y2="50"/>
+        <line class="arrow" x1="750" y1="50" x2="752" y2="50"/>
+      </svg>
+
+      <!-- 1. Setup -->
+      <div class="rounded-lg border border-slate-200 bg-white p-2.5 flex flex-col gap-1.5 overflow-hidden">
+        <div class="flex items-center justify-between">
+          <div class="font-bold text-indigo-800">1 · Setup</div>
+          <span class="text-[10px] text-emerald-700 bg-emerald-100 rounded px-1.5">impl</span>
+        </div>
+        <div class="text-[11px] text-slate-600 leading-tight">Provision the machine: CPU/mem/network, cache OS/app images.</div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">CloudLab (bare metal)</div>
+          <div class="text-[10px] text-slate-500"><code class="path">infra/baremetal/cloudlab.py</code></div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">libvirt + KVM (VM)</div>
+          <div class="text-[10px] text-slate-500"><code class="path">infra/vm/standalone.py</code> · <code class="path">cluster.py</code></div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">Docker (container)</div>
+          <div class="text-[10px] text-slate-500"><code class="path">infra/container/docker.py</code></div>
+        </div>
+        <div class="mt-auto text-[10px] text-slate-500"><code class="path">TrialQueue</code> · <code class="path">asyncio.Semaphore(n)</code> <code class="path">trial/queue.py:39</code></div>
+      </div>
+
+      <!-- 2. Bootstrap -->
+      <div class="rounded-lg border border-slate-200 bg-white p-2.5 flex flex-col gap-1.5 overflow-hidden">
+        <div class="flex items-center justify-between">
+          <div class="font-bold text-indigo-800">2 · Bootstrap</div>
+          <span class="text-[10px] text-emerald-700 bg-emerald-100 rounded px-1.5">impl</span>
+        </div>
+        <div class="text-[11px] text-slate-600 leading-tight">Start the application infra (Redis / Ceph / HDFS / etcd / Cassandra) and drive it to the desired test state.</div>
+        <div class="rounded bg-slate-50 border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">environment/setup.sh</div>
+          <div class="text-[10px] text-slate-500">Once per image: apt install, image cache</div>
+        </div>
+        <div class="rounded bg-slate-50 border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">environment/bootstrap.sh</div>
+          <div class="text-[10px] text-slate-500">Per trial: launch services → broken/desired state</div>
+        </div>
+        <div class="mt-auto text-[10px] text-slate-500">Per-trial isolation: unique VM, disk, libvirt network.</div>
+      </div>
+
+      <!-- 3. Management -->
+      <div class="rounded-lg border border-slate-200 bg-white p-2.5 flex flex-col gap-1.5 overflow-hidden">
+        <div class="flex items-center justify-between">
+          <div class="font-bold text-indigo-800">3 · Management</div>
+          <span class="text-[10px] text-emerald-700 bg-emerald-100 rounded px-1.5">impl</span>
+        </div>
+        <div class="text-[11px] text-slate-600 leading-tight">Scenario engine orchestrates agent + faults + verification.</div>
+        <div class="rounded border border-indigo-200 bg-indigo-50 px-2 py-1">
+          <div class="text-[10px] font-semibold">ScenarioEngine</div>
+          <div class="text-[10px] text-slate-500"><code class="path">fault/scenario/executor.py</code> · 3 modes</div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">Fault injectors (6)</div>
+          <div class="text-[10px] text-slate-500 leading-snug">
+            kill <code class="path">:71</code> · partition <code class="path">:95</code> · disk-delay <code class="path">:159</code><br>
+            disk-fill <code class="path">:223</code> · cpu <code class="path">:268</code> · netem <code class="path">network.py</code>
+          </div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">Dynamic &amp; cascading fault timelines</div>
+          <div class="text-[10px] text-slate-500">Adaptive injection driven by live state; chained L1→L4→L6 propagation.</div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">Periodic Verifier → EventLog</div>
+          <div class="text-[10px] text-slate-500"><code class="path">fault/scenario/periodic_verifier.py:20</code> · <code class="path">events.py</code></div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">Operations monitoring</div>
+          <div class="text-[10px] text-slate-500">Dangerous-op detection (rm -rf, dd /dev/…) + cascading-fault trigger watch → EventLog.</div>
+        </div>
+      </div>
+
+      <!-- 4. Decommission -->
+      <div class="rounded-lg border border-slate-200 bg-white p-2.5 flex flex-col gap-1.5 overflow-hidden">
+        <div class="flex items-center justify-between">
+          <div class="font-bold text-indigo-800">4 · Decommission</div>
+          <span class="text-[10px] text-emerald-700 bg-emerald-100 rounded px-1.5">impl (core)</span>
+        </div>
+        <div class="text-[11px] text-slate-600 leading-tight">Clean teardown after each trial.</div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">stop(delete=…)</div>
+          <div class="text-[10px] text-slate-500"><code class="path">infra/base.py:291</code></div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">heal_all()</div>
+          <div class="text-[10px] text-slate-500"><code class="path">fault/injection.py:320</code></div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">network_cleanup</div>
+          <div class="text-[10px] text-slate-500"><code class="path">infra/vm/network_cleanup.py</code></div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">Restart · container level</div>
+          <div class="text-[10px] text-slate-500">docker / pod restart of a single service; re-verify state survives.</div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1">
+          <div class="text-[10px] font-semibold">Restart · device level</div>
+          <div class="text-[10px] text-slate-500">Host reboot, kernel reload, device re-attach; config &amp; data persist.</div>
+        </div>
+        <div class="planned border-2 rounded px-2 py-1 mt-auto">
+          <span class="planned-chip text-[10px] px-1.5 py-0.5 rounded">Planned</span>
+          <div class="text-[10px] text-slate-700 mt-0.5">Data migration / backup hooks before teardown.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- bottom strip: Planned roadmap -->
+    <section class="planned border-2 rounded-lg p-2.5 flex items-center gap-3 overflow-hidden">
+      <span class="planned-chip text-[10px] px-2 py-0.5 rounded shrink-0">Planned — not yet implemented</span>
+      <div class="grid grid-cols-4 gap-3 flex-1 text-[11px] text-slate-700">
+        <div><span class="font-semibold">Long-term monitoring</span> — background scoring after agent exits.</div>
+        <div><span class="font-semibold">Lifecycle / longevity</span> — sustained workload regression check.</div>
+        <div><span class="font-semibold">Multi-tenant impact</span> — noisy-neighbour on shared infra.</div>
+        <div><span class="font-semibold">Formal task taxonomy</span> — layer × fault class × phase coverage.</div>
+      </div>
+    </section>
+
+  </div>
+</main>
+</body>
+</html>

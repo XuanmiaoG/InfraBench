@@ -1,0 +1,32 @@
+schema_version = "1.1"
+
+[task]
+name = "syscraft/ipmi-node-power-recovery"
+description = "Use IPMI out-of-band management to diagnose an unexpectedly powered-off bare-metal node and restore it to service"
+keywords = ["ipmi", "bare-metal", "l1", "hardware", "power", "out-of-band"]
+
+[metadata]
+difficulty = "hard"
+tags = ["ipmi", "bare-metal", "l1", "hardware", "power"]
+
+[verifier]
+timeout_sec = 120.0
+
+[agent]
+timeout_sec = 1200.0
+
+[environment]
+type = "cloudlab"
+
+[[environment.nodes]]
+name = "node0"
+host = "c220g1-031125.wisc.cloudlab.us"
+roles = ["primary"]
+
+[[environment.nodes]]
+name = "node1"
+host = "c220g1-031116.wisc.cloudlab.us"
+
+[[environment.nodes]]
+name = "node2"
+host = "c220g1-031105.wisc.cloudlab.us"

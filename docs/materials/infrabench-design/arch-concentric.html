@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>InfraBench — Concentric Architecture</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html, body { height: 100%; }
+  body { overflow: hidden; font-size: clamp(11px, 0.85vw, 13px); }
+  .planned { border-style: dashed; border-color: rgb(251 191 36); background: rgb(255 251 235); }
+  .planned-chip { background: rgb(254 243 199); color: rgb(146 64 14); font-weight:600; }
+  code.path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85em; color: rgb(71 85 105); }
+  .ring-outer { background: linear-gradient(135deg, rgb(238 242 255), rgb(224 231 255)); }
+  .ring-middle { background: rgb(248 250 252); }
+  .ring-inner { background: white; }
+  .phase-label { font-size: 11px; font-weight: 700; color: rgb(67 56 202); letter-spacing: .04em; text-transform: uppercase; }
+  @media print { @page { size: landscape; margin: 0.4in; } body { overflow: visible; } }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900 h-screen flex flex-col">
+
+<header class="px-5 py-2 flex items-center justify-between border-b border-slate-200 bg-white shrink-0">
+  <div class="flex items-baseline gap-3">
+    <span class="text-lg font-bold tracking-tight">InfraBench</span>
+    <span class="text-slate-500">Concentric Architecture</span>
+  </div>
+  <nav class="text-xs space-x-3 text-slate-600">
+    <a href="arch-pipeline.html" class="hover:text-indigo-700">Pipeline</a>
+    <span class="font-semibold text-slate-900">Concentric</span>
+    <a href="arch-bands.html" class="hover:text-indigo-700">Bands</a>
+    <a href="arch-paper.html" class="hover:text-indigo-700">Paper</a>
+    <a href="index.html" class="hover:text-indigo-700">Docs ↗</a>
+  </nav>
+</header>
+
+<main class="flex-1 grid grid-cols-[1fr_22%] gap-3 p-3 overflow-hidden">
+
+  <!-- concentric canvas -->
+  <section class="rounded-2xl border border-slate-200 bg-white p-3 overflow-hidden flex flex-col">
+    <div class="text-[10px] uppercase tracking-wider text-slate-500 mb-2">Lifecycle ⊃ Provisioning ⊃ Stack &amp; Faults</div>
+
+    <!-- outer ring: 4 phases as a 3x3 grid where corners=labels and middle=middle ring -->
+    <div class="flex-1 ring-outer rounded-3xl p-3 grid grid-rows-[auto_1fr_auto] gap-2 overflow-hidden">
+
+      <!-- TOP phase label: Setup -->
+      <div class="flex items-center gap-2">
+        <span class="phase-label">Setup</span>
+        <span class="text-[11px] text-slate-700">Provision machines (CPU/mem/net, image cache) · <code class="path">TrialQueue</code> bounds concurrency <code class="path">trial/queue.py:39</code></span>
+      </div>
+
+      <!-- MIDDLE: left phase + middle ring + right phase -->
+      <div class="grid grid-cols-[auto_1fr_auto] gap-3 items-center overflow-hidden">
+
+        <!-- LEFT phase: Decommission (rotated label) -->
+        <div class="flex flex-col items-center gap-1 w-28 shrink-0">
+          <span class="phase-label">Decommission</span>
+          <div class="text-[10px] text-slate-700 text-center leading-tight">
+            <code class="path">stop(delete=…)</code><br>
+            <code class="path">base.py:291</code><br>
+            <code class="path">heal_all()</code><br>
+            <code class="path">injection.py:320</code>
+          </div>
+        </div>
+
+        <!-- middle ring containing inner core -->
+        <div class="ring-middle rounded-3xl border border-slate-200 p-3 flex flex-col gap-2 h-full overflow-hidden">
+          <div class="text-[10px] uppercase tracking-wider text-slate-500">Provisioning engines</div>
+          <div class="grid grid-cols-4 gap-2 text-[11px]">
+            <div class="rounded border border-slate-200 bg-white px-2 py-1"><div class="font-semibold">CloudLab</div><div class="text-slate-500 text-[10px]">bare metal · <code class="path">baremetal/cloudlab.py</code></div></div>
+            <div class="rounded border border-slate-200 bg-white px-2 py-1"><div class="font-semibold">libvirt+KVM</div><div class="text-slate-500 text-[10px]">VM · <code class="path">vm/standalone.py</code></div></div>
+            <div class="rounded border border-slate-200 bg-white px-2 py-1"><div class="font-semibold">Docker</div><div class="text-slate-500 text-[10px]">container · <code class="path">container/docker.py</code></div></div>
+            <div class="rounded border border-slate-200 bg-white px-2 py-1"><div class="font-semibold">setup.sh + bootstrap.sh</div><div class="text-slate-500 text-[10px]">app bring-up</div></div>
+          </div>
+
+          <!-- inner core -->
+          <div class="ring-inner border border-slate-200 rounded-2xl p-3 grid grid-cols-2 gap-3 flex-1 overflow-hidden">
+            <div class="flex flex-col gap-1 overflow-hidden">
+              <div class="text-[10px] uppercase tracking-wider text-slate-500">Layer stack (L1–L6)</div>
+              <div class="rounded bg-indigo-50 border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L6 Service</span><span class="text-slate-500 text-[10px]">misconfig · feature flags</span></div>
+              <div class="rounded bg-indigo-50 border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L5 Platform</span><span class="text-slate-500 text-[10px]">scheduler · RBAC</span></div>
+              <div class="rounded bg-indigo-50 border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L4 Storage</span><span class="text-slate-500 text-[10px]">quorum · WAL</span></div>
+              <div class="rounded bg-indigo-50 border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L3 Kernel</span><span class="text-slate-500 text-[10px]">syscall · OOM · clock</span></div>
+              <div class="rounded bg-indigo-50 border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L2 Virt</span><span class="text-slate-500 text-[10px]">runtime · vSwitch</span></div>
+              <div class="rounded bg-indigo-50 border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L1 Hardware</span><span class="text-slate-500 text-[10px]">disk · NIC · power</span></div>
+            </div>
+            <div class="flex flex-col gap-1 overflow-hidden">
+              <div class="text-[10px] uppercase tracking-wider text-slate-500">Fault injectors · Scenario engine</div>
+              <div class="rounded border border-slate-200 px-2 py-1 text-[11px]"><span class="font-semibold">Process kill</span> <span class="text-slate-500 text-[10px]">pkill · <code class="path">injection.py:71</code></span></div>
+              <div class="rounded border border-slate-200 px-2 py-1 text-[11px]"><span class="font-semibold">Network partition</span> <span class="text-slate-500 text-[10px]">iptables DROP · <code class="path">:95</code></span></div>
+              <div class="rounded border border-slate-200 px-2 py-1 text-[11px]"><span class="font-semibold">Disk delay / fill</span> <span class="text-slate-500 text-[10px]">tc · dd · <code class="path">:159 / :223</code></span></div>
+              <div class="rounded border border-slate-200 px-2 py-1 text-[11px]"><span class="font-semibold">CPU stress</span> <span class="text-slate-500 text-[10px]"><code class="path">:268</code></span></div>
+              <div class="rounded border border-slate-200 px-2 py-1 text-[11px]"><span class="font-semibold">Network shaping</span> <span class="text-slate-500 text-[10px]">tc/netem · <code class="path">network.py</code></span></div>
+              <div class="rounded border border-slate-200 px-2 py-1 text-[11px]"><span class="font-semibold">Dynamic &amp; cascading</span> <span class="text-slate-500 text-[10px]">adaptive, chained L1→L4→L6 timelines</span></div>
+              <div class="rounded border border-indigo-200 bg-indigo-50 px-2 py-1 text-[11px]"><span class="font-semibold">Periodic Verifier → EventLog</span> <span class="text-slate-500 text-[10px]"><code class="path">periodic_verifier.py:20</code></span></div>
+              <div class="rounded border border-slate-200 px-2 py-1 text-[11px]"><span class="font-semibold">Operations monitoring</span> <span class="text-slate-500 text-[10px]">dangerous ops + cascade triggers → EventLog</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT phase: Management -->
+        <div class="flex flex-col items-center gap-1 w-28 shrink-0">
+          <span class="phase-label">Management</span>
+          <div class="text-[10px] text-slate-700 text-center leading-tight">
+            ScenarioController<br>
+            + Agent · Faults<br>
+            + Verification<br>
+            + Ops monitoring<br>
+            <span class="text-slate-500">Restart: container · device</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM phase label: Bootstrap -->
+      <div class="flex items-center gap-2">
+        <span class="phase-label">Bootstrap</span>
+        <span class="text-[11px] text-slate-700"><code class="path">environment/bootstrap.sh</code> brings up Redis / Ceph / HDFS / etcd / Cassandra and drives the system to its test state.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- side panel: Planned -->
+  <aside class="rounded-2xl bg-white border border-slate-200 p-3 flex flex-col gap-2 overflow-hidden">
+    <div class="text-[10px] uppercase tracking-wider text-slate-500">Roadmap</div>
+    <h2 class="text-sm font-bold">Planned — not yet implemented</h2>
+
+    <div class="planned border-2 rounded p-2 text-[11px] text-slate-700">
+      <span class="planned-chip text-[10px] px-1.5 py-0.5 rounded">Decommission</span>
+      <div class="mt-1">Data migration / backup hooks before environment teardown.</div>
+    </div>
+    <div class="planned border-2 rounded p-2 text-[11px] text-slate-700">
+      <span class="planned-chip text-[10px] px-1.5 py-0.5 rounded">Tasks</span>
+      <div class="mt-1">Formal task taxonomy keyed on layer × fault class × lifecycle phase.</div>
+    </div>
+    <div class="planned border-2 rounded p-2 text-[11px] text-slate-700 flex-1 overflow-hidden">
+      <span class="planned-chip text-[10px] px-1.5 py-0.5 rounded">Long-term monitoring</span>
+      <ul class="mt-1 list-disc pl-4 space-y-1">
+        <li>Background scoring after agent exit.</li>
+        <li>Lifecycle / restart impact verification.</li>
+        <li>Longevity tests under sustained workload.</li>
+        <li>Multi-tenant noisy-neighbour impact.</li>
+        <li>Resource accounting (CPU/mem/disk/net).</li>
+      </ul>
+    </div>
+
+    <div class="text-[10px] text-slate-500 mt-auto">Implemented components are bordered solid; planned items are dashed amber.</div>
+  </aside>
+
+</main>
+</body>
+</html>

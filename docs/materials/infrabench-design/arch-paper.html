@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>InfraBench — System Figure</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html, body { height: 100%; background: white; }
+  body { overflow: hidden; color: rgb(15 23 42); font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .kicker { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgb(100 116 139); }
+  .box { border: 1px solid rgb(71 85 105); border-radius: 6px; background: white; padding: 6px 8px; }
+  .box-title { font-weight: 600; font-size: 12px; color: rgb(15 23 42); }
+  .box-body { font-size: 10.5px; color: rgb(51 65 85); line-height: 1.35; }
+  .engine { border: 1.5px solid rgb(79 70 229); }
+  .engine-title { color: rgb(67 56 202); }
+  .store { border: 1px solid rgb(71 85 105); background: white; border-radius: 999px / 50%; padding: 8px 12px; text-align:center; }
+  .ribbon-cell { border-right: 1px solid rgb(203 213 225); padding: 5px 8px; font-size: 10.5px; text-align: center; }
+  .ribbon-cell:last-child { border-right: 0; }
+  .caption { font-size: 11px; line-height: 1.45; color: rgb(71 85 105); font-style: italic; }
+  .ret { font-size: 10px; color: rgb(99 102 241); }
+  @media print { @page { size: landscape; margin: 0.3in; } body { overflow: visible; } }
+</style>
+</head>
+<body class="h-screen flex flex-col px-6 py-3">
+
+<!-- header strip (minimal, paper-figure feel) -->
+<header class="flex items-baseline justify-between shrink-0 pb-2 border-b border-slate-200">
+  <div class="flex items-baseline gap-3">
+    <span class="text-base font-semibold tracking-tight">InfraBench — System Figure</span>
+    <span class="kicker">Vision · everything built</span>
+  </div>
+  <nav class="text-[11px] space-x-3 text-slate-600">
+    <a href="arch-pipeline.html" class="hover:text-indigo-700">Pipeline</a>
+    <a href="arch-concentric.html" class="hover:text-indigo-700">Concentric</a>
+    <a href="arch-bands.html" class="hover:text-indigo-700">Bands</a>
+    <span class="font-semibold text-slate-900">Paper</span>
+    <a href="index.html" class="hover:text-indigo-700">Docs ↗</a>
+  </nav>
+</header>
+
+<!-- figure canvas -->
+<main class="flex-1 relative my-2">
+  <!-- SVG arrows overlay -->
+  <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 700" preserveAspectRatio="none">
+    <defs>
+      <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <path d="M0,0 L9,4.5 L0,9 z" fill="rgb(71 85 105)"/>
+      </marker>
+      <marker id="ahi" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <path d="M0,0 L9,4.5 L0,9 z" fill="rgb(79 70 229)"/>
+      </marker>
+    </defs>
+
+    <!-- Task spec / Agent  →  Environment -->
+    <path d="M170,90 C 220,90 220,170 270,170" stroke="rgb(71 85 105)" stroke-width="1.2" fill="none" marker-end="url(#ah)"/>
+    <path d="M170,260 C 220,260 220,170 270,170" stroke="rgb(71 85 105)" stroke-width="1.2" fill="none" marker-end="url(#ah)"/>
+
+    <!-- Provisioning row → Environment (4 down-arrows merge into env) -->
+    <line x1="335" y1="115" x2="335" y2="148" stroke="rgb(71 85 105)" stroke-width="1.2" marker-end="url(#ah)"/>
+    <line x1="475" y1="115" x2="475" y2="148" stroke="rgb(71 85 105)" stroke-width="1.2" marker-end="url(#ah)"/>
+    <line x1="615" y1="115" x2="615" y2="148" stroke="rgb(71 85 105)" stroke-width="1.2" marker-end="url(#ah)"/>
+    <line x1="755" y1="115" x2="755" y2="148" stroke="rgb(71 85 105)" stroke-width="1.2" marker-end="url(#ah)"/>
+
+    <!-- Environment → Scenario Engine -->
+    <line x1="540" y1="218" x2="540" y2="262" stroke="rgb(79 70 229)" stroke-width="1.6" marker-end="url(#ahi)"/>
+
+    <!-- Agent ↔ Scenario Engine (bidirectional, indigo) -->
+    <path d="M170,275 C 230,300 230,340 270,360" stroke="rgb(79 70 229)" stroke-width="1.5" fill="none" marker-end="url(#ahi)"/>
+    <path d="M270,380 C 230,380 230,310 170,290" stroke="rgb(79 70 229)" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#ahi)"/>
+
+    <!-- Scenario Engine → Event Log (3 sub-flows down) -->
+    <line x1="380" y1="535" x2="380" y2="585" stroke="rgb(71 85 105)" stroke-width="1.2" marker-end="url(#ah)"/>
+    <line x1="540" y1="535" x2="540" y2="585" stroke="rgb(71 85 105)" stroke-width="1.2" marker-end="url(#ah)"/>
+    <line x1="700" y1="535" x2="700" y2="585" stroke="rgb(71 85 105)" stroke-width="1.2" marker-end="url(#ah)"/>
+
+    <!-- Agent → Event Log (write, dashed) -->
+    <path d="M120,310 C 80,460 200,600 320,615" stroke="rgb(71 85 105)" stroke-width="1.2" fill="none" stroke-dasharray="4 3" marker-end="url(#ah)"/>
+
+    <!-- Scenario Engine → Decommission -->
+    <path d="M810,340 C 870,340 870,250 890,235" stroke="rgb(71 85 105)" stroke-width="1.2" fill="none" marker-end="url(#ah)"/>
+
+    <!-- Decommission → Outputs -->
+    <line x1="940" y1="305" x2="940" y2="420" stroke="rgb(71 85 105)" stroke-width="1.2" marker-end="url(#ah)"/>
+
+    <!-- Event Log → Outputs -->
+    <path d="M760,615 C 870,615 920,520 940,485" stroke="rgb(71 85 105)" stroke-width="1.2" fill="none" marker-end="url(#ah)"/>
+  </svg>
+
+  <!-- INPUT COLUMN -->
+  <div class="absolute" style="left:1%;top:6%;width:15%;">
+    <div class="kicker mb-1">Input · Spec</div>
+    <div class="box">
+      <div class="box-title">Task spec</div>
+      <div class="box-body">task.toml · instruction.md · tests/</div>
+    </div>
+  </div>
+  <div class="absolute" style="left:1%;top:33%;width:15%;">
+    <div class="kicker mb-1">Actor</div>
+    <div class="box">
+      <div class="box-title">Agent</div>
+      <div class="box-body">Claude Code / OpenHands / Codex / Aider / …</div>
+    </div>
+  </div>
+
+  <!-- PROVISIONING ROW -->
+  <div class="absolute" style="left:20%;top:2%;width:60%;">
+    <div class="kicker mb-1">Provisioning substrates</div>
+    <div class="grid grid-cols-4 gap-2">
+      <div class="box"><div class="box-title text-[11px]">CloudLab</div><div class="box-body">bare metal</div></div>
+      <div class="box"><div class="box-title text-[11px]">libvirt + KVM</div><div class="box-body">VM (single + cluster)</div></div>
+      <div class="box"><div class="box-title text-[11px]">Docker</div><div class="box-body">container</div></div>
+      <div class="box"><div class="box-title text-[11px]">setup.sh + bootstrap.sh</div><div class="box-body">application bring-up</div></div>
+    </div>
+  </div>
+
+  <!-- ENVIRONMENT -->
+  <div class="absolute" style="left:20%;top:21%;width:60%;">
+    <div class="box">
+      <div class="flex items-baseline justify-between">
+        <div class="box-title">Environment <span class="kicker font-normal ml-1">per-trial isolated</span></div>
+        <div class="box-body text-[10px]">TrialQueue · asyncio.Semaphore(n) — N concurrent isolated trials</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENARIO ENGINE -->
+  <div class="absolute" style="left:20%;top:32%;width:60%;height:44%;">
+    <div class="box engine h-full flex flex-col">
+      <div class="kicker engine-title">Subsystem · Orchestrator</div>
+      <div class="box-title engine-title text-[14px]">Scenario Engine</div>
+      <div class="grid grid-cols-2 gap-2 mt-1.5 flex-1">
+        <div class="box">
+          <div class="box-title text-[11px]">Fault injection</div>
+          <ul class="box-body mt-0.5 space-y-0.5 leading-snug">
+            <li><span class="kicker">Process</span> &nbsp;kill (pkill, signal-configurable) · restart loops</li>
+            <li><span class="kicker">Network</span> &nbsp;<em class="text-indigo-700 not-italic font-medium">cross-cutting L1↔L6</em> — partition (iptables) · latency / loss / bandwidth (tc/netem) · TCP drops · vSwitch / bridge faults</li>
+            <li><span class="kicker">Storage</span> &nbsp;disk delay (tc) · disk fill (dd) · WAL corruption · replica divergence</li>
+            <li><span class="kicker">Compute</span> &nbsp;CPU stress · memory pressure · clock skew · OOM</li>
+            <li><span class="kicker">Composition</span> &nbsp;<em>dynamic + cascading timelines</em>, state-driven, chained across layers</li>
+            <li class="text-slate-500"><em>all reversible · heal_all() reverts every active fault</em></li>
+          </ul>
+        </div>
+        <div class="box">
+          <div class="box-title text-[11px]">Periodic Verifier</div>
+          <ul class="box-body mt-0.5 space-y-0.5 leading-snug">
+            <li>Runs <code class="text-[10px]">tests/test.sh</code> on a configurable interval</li>
+            <li>Parses reward from <code class="text-[10px]">/logs/verifier/reward.{txt,json}</code></li>
+            <li>Captures <em>initial</em> (post-bootstrap), <em>periodic</em>, and <em>final</em> scores</li>
+            <li>Reports <code class="text-[10px]">(elapsed_sec, VerifierResult)</code> → Scenario Engine → Event Log</li>
+            <li class="text-slate-500"><em>score evolution across the trial timeline, not just final</em></li>
+          </ul>
+        </div>
+        <div class="box">
+          <div class="box-title text-[11px]">Operations monitoring</div>
+          <ul class="box-body mt-0.5 space-y-0.5 leading-snug">
+            <li><span class="kicker">Dangerous ops</span> &nbsp;<code class="text-[10px]">rm -rf</code> · <code class="text-[10px]">dd of=/dev/…</code> · <code class="text-[10px]">mkfs</code> · <code class="text-[10px]">dropdb</code> · irreversible config writes</li>
+            <li><span class="kicker">Cascade triggers</span> &nbsp;detects propagation patterns (e.g. L3 OOM → L4 replica drop → L6 service unavailable)</li>
+            <li><span class="kicker">Classification</span> &nbsp;reversible · irreversible · destructive</li>
+            <li class="text-slate-500"><em>streams findings to Event Log with severity tags</em></li>
+          </ul>
+        </div>
+        <div class="box">
+          <div class="box-title text-[11px]">Restart manager <span class="kicker font-normal ml-1">mid-scenario + post-agent-completion</span></div>
+          <ul class="box-body mt-0.5 space-y-0.5 leading-snug">
+            <li><span class="kicker">Container-level</span> &nbsp;<code class="text-[10px]">docker restart</code> · pod cycle · service-only restart</li>
+            <li><span class="kicker">Device-level</span> &nbsp;host reboot · kernel module reload · device re-attach</li>
+            <li><span class="kicker">Persistence</span> &nbsp;config survives · data survives · in-flight state recovers</li>
+            <li class="text-slate-500"><em>re-runs Periodic Verifier after each restart cycle to score persistence</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVENT LOG (store, cylinder-ish) -->
+  <div class="absolute" style="left:30%;top:84%;width:40%;">
+    <div class="kicker mb-0.5 text-center">Store</div>
+    <div class="store">
+      <div class="box-title text-[12px]">Event / Timeline Log</div>
+      <div class="box-body">timestamp · elapsed_sec · name · data — append-only, per trial</div>
+    </div>
+  </div>
+
+  <!-- DECOMMISSION -->
+  <div class="absolute" style="left:84%;top:26%;width:15%;">
+    <div class="kicker mb-1">Teardown</div>
+    <div class="box">
+      <div class="box-title">Decommission</div>
+      <div class="box-body">stop(delete=…) · heal_all() · network cleanup · data migration / backup</div>
+    </div>
+  </div>
+
+  <!-- OUTPUTS -->
+  <div class="absolute" style="left:84%;top:56%;width:15%;">
+    <div class="kicker mb-1">Output</div>
+    <div class="box">
+      <div class="box-title">Outputs</div>
+      <div class="box-body">per-trial score · scenario timeline · trajectory · captured artifacts</div>
+    </div>
+  </div>
+</main>
+
+<!-- L1–L6 substrate ribbon -->
+<section class="shrink-0">
+  <div class="kicker mb-1">Substrate · L1–L6 &nbsp;<span class="text-slate-400 normal-case tracking-normal italic">(every layer also has a network-fault flavor — network errors are cross-cutting)</span></div>
+  <div class="relative grid grid-cols-6 border border-slate-400 rounded">
+    <div class="ribbon-cell">
+      <div class="font-semibold">L1 · Hardware</div>
+      <div class="text-slate-500">disk · NIC · power</div>
+      <div class="text-indigo-700 text-[9.5px] italic mt-0.5">network: NIC faults · link loss</div>
+    </div>
+    <div class="ribbon-cell">
+      <div class="font-semibold">L2 · Virtualization</div>
+      <div class="text-slate-500">runtime · vSwitch</div>
+      <div class="text-indigo-700 text-[9.5px] italic mt-0.5">network: vSwitch / bridge faults</div>
+    </div>
+    <div class="ribbon-cell">
+      <div class="font-semibold">L3 · Kernel</div>
+      <div class="text-slate-500">syscall · OOM · clock</div>
+      <div class="text-indigo-700 text-[9.5px] italic mt-0.5">network: TCP drops · routing faults</div>
+    </div>
+    <div class="ribbon-cell">
+      <div class="font-semibold">L4 · Storage / Data</div>
+      <div class="text-slate-500">quorum · WAL</div>
+      <div class="text-indigo-700 text-[9.5px] italic mt-0.5">network: replica partition · slow links</div>
+    </div>
+    <div class="ribbon-cell">
+      <div class="font-semibold">L5 · Platform</div>
+      <div class="text-slate-500">scheduler · RBAC</div>
+      <div class="text-indigo-700 text-[9.5px] italic mt-0.5">network: API-server partition · node isolation</div>
+    </div>
+    <div class="ribbon-cell">
+      <div class="font-semibold">L6 · Service</div>
+      <div class="text-slate-500">misconfig · feature flags</div>
+      <div class="text-indigo-700 text-[9.5px] italic mt-0.5">network: service discovery · endpoint churn</div>
+    </div>
+    <!-- cross-cutting network strap -->
+    <div class="absolute inset-x-0 -bottom-3 flex items-center pointer-events-none">
+      <div class="flex-1 h-px bg-indigo-400"></div>
+      <div class="px-2 text-[9.5px] italic text-indigo-700 whitespace-nowrap bg-white">network faults — cross-cutting L1–L6</div>
+      <div class="flex-1 h-px bg-indigo-400"></div>
+    </div>
+  </div>
+</section>
+
+<!-- caption -->
+<footer class="shrink-0 mt-5 caption max-w-[1180px]">
+  <strong class="not-italic text-slate-700">Figure 1.</strong> InfraBench system overview. A task spec and an agent drive a per-trial isolated environment provisioned from one of four substrates (CloudLab / libvirt+KVM / Docker / application bootstrap). The Scenario Engine orchestrates fault injection across the process, network, storage, and compute domains — including dynamic and cascading timelines — periodic verification with score evolution, operations monitoring (dangerous-op detection and cascading-fault trigger watch), and container/device-level restart that re-verifies persistence both mid-scenario and after agent completion. Every action, fault, and score change is captured in the append-only Event Log. Decommission tears the environment down and exports per-trial score, timeline, trajectory, and artifacts. All components operate on the L1–L6 substrate ribbon, with network faults cross-cutting every layer from NIC loss at L1 to service-discovery churn at L6.
+</footer>
+
+</body>
+</html>

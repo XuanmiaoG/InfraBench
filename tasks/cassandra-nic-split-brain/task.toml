@@ -1,0 +1,33 @@
+schema_version = "1.1"
+
+[task]
+name = "syscraft/cassandra-nic-split-brain"
+description = "Diagnose and repair a Cassandra split-brain caused by physical NIC loss on a cluster node"
+keywords = ["cassandra", "split-brain", "nic", "bare-metal", "storage"]
+
+[metadata]
+difficulty = "hard"
+tags = ["cassandra", "split-brain", "nic", "bare-metal", "l2", "storage"]
+
+[verifier]
+timeout_sec = 300.0
+
+[agent]
+timeout_sec = 1200.0
+
+[environment]
+type = "cloudlab"
+build_timeout_sec = 1800.0
+
+[[environment.nodes]]
+name = "node0"
+host = "c220g1-031125.wisc.cloudlab.us"
+roles = ["primary"]
+
+[[environment.nodes]]
+name = "node1"
+host = "c220g1-031116.wisc.cloudlab.us"
+
+[[environment.nodes]]
+name = "node2"
+host = "c220g1-031105.wisc.cloudlab.us"

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>InfraBench — Bands Architecture</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html, body { height: 100%; }
+  body { overflow: hidden; font-size: clamp(11px, 0.85vw, 13px); }
+  .planned { border-style: dashed; border-color: rgb(251 191 36); background: rgb(255 251 235); }
+  .planned-chip { background: rgb(254 243 199); color: rgb(146 64 14); font-weight:600; }
+  code.path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85em; color: rgb(71 85 105); }
+  .band-label { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: rgb(100 116 139); }
+  .arrow { stroke: rgb(99 102 241); stroke-width: 1.5; fill: none; marker-end: url(#ah); }
+  @media print { @page { size: landscape; margin: 0.4in; } body { overflow: visible; } }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900 h-screen flex flex-col">
+
+<header class="px-5 py-2 flex items-center justify-between border-b border-slate-200 bg-white shrink-0">
+  <div class="flex items-baseline gap-3">
+    <span class="text-lg font-bold tracking-tight">InfraBench</span>
+    <span class="text-slate-500">Bands Architecture</span>
+  </div>
+  <nav class="text-xs space-x-3 text-slate-600">
+    <a href="arch-pipeline.html" class="hover:text-indigo-700">Pipeline</a>
+    <a href="arch-concentric.html" class="hover:text-indigo-700">Concentric</a>
+    <span class="font-semibold text-slate-900">Bands</span>
+    <a href="arch-paper.html" class="hover:text-indigo-700">Paper</a>
+    <a href="index.html" class="hover:text-indigo-700">Docs ↗</a>
+  </nav>
+</header>
+
+<main class="flex-1 grid grid-rows-[22%_52%_26%] gap-2 p-3 overflow-hidden">
+
+  <!-- BAND 1: Provisioning -->
+  <section class="rounded-lg border border-slate-200 bg-white p-2.5 overflow-hidden flex flex-col">
+    <div class="band-label">Band 1 · Provisioning</div>
+    <div class="mt-1.5 grid grid-cols-4 gap-2 flex-1 overflow-hidden">
+      <div class="rounded border border-slate-200 p-2 flex flex-col">
+        <div class="text-[10px] text-slate-500">Hardware</div>
+        <div class="font-semibold">CloudLab</div>
+        <div class="text-[11px] text-slate-700 mt-1 leading-snug">Physical nodes, kernel-level access. SSH-driven.</div>
+        <div class="mt-auto text-[10px] text-slate-500"><code class="path">infra/baremetal/cloudlab.py</code></div>
+      </div>
+      <div class="rounded border border-slate-200 p-2 flex flex-col">
+        <div class="text-[10px] text-slate-500">Hypervisor</div>
+        <div class="font-semibold">libvirt + KVM</div>
+        <div class="text-[11px] text-slate-700 mt-1 leading-snug">Single-node + multi-node VM clusters. Per-trial disk, NIC, bridge.</div>
+        <div class="mt-auto text-[10px] text-slate-500"><code class="path">infra/vm/standalone.py</code> · <code class="path">cluster.py</code></div>
+      </div>
+      <div class="rounded border border-slate-200 p-2 flex flex-col">
+        <div class="text-[10px] text-slate-500">Container</div>
+        <div class="font-semibold">Docker</div>
+        <div class="text-[11px] text-slate-700 mt-1 leading-snug">Default substrate. Fast start, shared kernel.</div>
+        <div class="mt-auto text-[10px] text-slate-500"><code class="path">infra/container/docker.py</code></div>
+      </div>
+      <div class="rounded border border-slate-200 p-2 flex flex-col">
+        <div class="text-[10px] text-slate-500">Application</div>
+        <div class="font-semibold">setup.sh + bootstrap.sh</div>
+        <div class="text-[11px] text-slate-700 mt-1 leading-snug"><strong>setup.sh</strong>: one-time image prep. <strong>bootstrap.sh</strong>: per trial — bring up services, drive to test state.</div>
+        <div class="mt-auto text-[10px] text-slate-500"><code class="path">tasks/&lt;t&gt;/environment/*.sh</code></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAND 2: Runtime -->
+  <section class="rounded-lg border border-slate-200 bg-white p-2.5 overflow-hidden flex flex-col">
+    <div class="band-label">Band 2 · Runtime — Stack &amp; Scenario Engine</div>
+    <div class="mt-1.5 grid grid-cols-[30%_1fr] gap-3 flex-1 overflow-hidden">
+
+      <!-- L1–L6 stack -->
+      <div class="rounded border border-slate-200 bg-slate-50 p-2 flex flex-col gap-1 overflow-hidden">
+        <div class="text-[10px] uppercase tracking-wider text-slate-500">Layer stack</div>
+        <div class="rounded bg-white border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L6 Service</span><span class="text-slate-500 text-[10px]">Container</span></div>
+        <div class="rounded bg-white border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L5 Platform</span><span class="text-slate-500 text-[10px]">Container/K8s</span></div>
+        <div class="rounded bg-white border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L4 Storage/Data</span><span class="text-slate-500 text-[10px]">Distributed</span></div>
+        <div class="rounded bg-white border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L3 Kernel</span><span class="text-slate-500 text-[10px]">VM/Bare</span></div>
+        <div class="rounded bg-white border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L2 Virtualization</span><span class="text-slate-500 text-[10px]">VM</span></div>
+        <div class="rounded bg-white border border-indigo-100 px-2 py-1 text-[11px] flex justify-between"><span class="font-semibold">L1 Hardware</span><span class="text-slate-500 text-[10px]">Bare metal</span></div>
+      </div>
+
+      <!-- Scenario Engine -->
+      <div class="relative rounded border border-indigo-200 bg-indigo-50/40 p-2 flex flex-col gap-2 overflow-hidden">
+        <div class="flex items-center justify-between">
+          <div class="text-sm font-bold text-indigo-800">Scenario Engine</div>
+          <div class="text-[10px] text-slate-500"><code class="path">fault/scenario/executor.py</code> · modes: AGENT_EXIT · TIMEBOXED · SCENARIO_DRIVEN</div>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 flex-1 overflow-hidden">
+          <div class="rounded border border-slate-200 bg-white p-2 flex flex-col">
+            <div class="font-semibold text-[12px]">Fault injectors</div>
+            <div class="text-[11px] text-slate-700 mt-1 leading-snug">
+              <span class="inline-block bg-slate-100 rounded px-1 mr-1 mb-0.5">kill</span>
+              <span class="inline-block bg-slate-100 rounded px-1 mr-1 mb-0.5">partition</span>
+              <span class="inline-block bg-slate-100 rounded px-1 mr-1 mb-0.5">disk-delay</span>
+              <span class="inline-block bg-slate-100 rounded px-1 mr-1 mb-0.5">disk-fill</span>
+              <span class="inline-block bg-slate-100 rounded px-1 mr-1 mb-0.5">cpu</span>
+              <span class="inline-block bg-slate-100 rounded px-1 mr-1 mb-0.5">netem</span>
+              <span class="inline-block bg-indigo-100 text-indigo-800 rounded px-1 mr-1 mb-0.5">dynamic + cascading</span>
+            </div>
+            <div class="mt-auto text-[10px] text-slate-500">all reversible · <code class="path">heal_all()</code></div>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-2 flex flex-col">
+            <div class="font-semibold text-[12px]">Periodic Verifier</div>
+            <div class="text-[11px] text-slate-700 mt-1 leading-snug">Runs <code class="path">tests/test.sh</code> on interval; parses reward.</div>
+            <div class="mt-auto text-[10px] text-slate-500"><code class="path">periodic_verifier.py:20</code></div>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-2 flex flex-col">
+            <div class="font-semibold text-[12px]">Operations monitoring</div>
+            <div class="text-[11px] text-slate-700 mt-1 leading-snug">Dangerous-op detection (rm -rf, dd /dev/…) + cascading-fault trigger watch.</div>
+            <div class="mt-auto text-[10px] text-slate-500">→ EventLog</div>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-2 flex flex-col">
+            <div class="font-semibold text-[12px]">Agent</div>
+            <div class="text-[11px] text-slate-700 mt-1 leading-snug">Claude Code / OpenHands / Codex / Aider / …<br>SSH or container exec.</div>
+            <div class="mt-auto text-[10px] text-slate-500"><code class="path">agents/installed/*</code></div>
+          </div>
+        </div>
+
+        <div class="rounded border border-slate-300 bg-white p-2 flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-[12px]">Event / Timeline Log</div>
+            <div class="text-[10px] text-slate-500">timestamp · elapsed · name · data — captures every action, fault, and score change</div>
+          </div>
+          <div class="text-[10px] text-slate-500"><code class="path">fault/scenario/events.py</code> · ScenarioEventLog</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAND 3: Decommission + Roadmap -->
+  <section class="grid grid-cols-2 gap-2 overflow-hidden">
+    <div class="rounded-lg border border-slate-200 bg-white p-2.5 flex flex-col overflow-hidden">
+      <div class="band-label">Band 3a · Decommission</div>
+      <div class="mt-1.5 grid grid-cols-2 gap-2 flex-1 overflow-hidden">
+        <div class="rounded border border-slate-200 px-2 py-1.5 flex flex-col">
+          <div class="font-semibold text-[12px]">Restart · container level</div>
+          <div class="text-[11px] text-slate-700 leading-snug">docker / pod restart of a single service; re-verify state survives.</div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1.5 flex flex-col">
+          <div class="font-semibold text-[12px]">Restart · device level</div>
+          <div class="text-[11px] text-slate-700 leading-snug">Host reboot, kernel reload, device re-attach; config &amp; data persist.</div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1.5 flex flex-col">
+          <div class="font-semibold text-[12px]">stop(delete=…)</div>
+          <div class="text-[11px] text-slate-700 leading-snug">Destroys VM, disk, network when <code>True</code>; preserves for debug when <code>False</code>.</div>
+          <div class="mt-auto text-[10px] text-slate-500"><code class="path">infra/base.py:291</code></div>
+        </div>
+        <div class="rounded border border-slate-200 px-2 py-1.5 flex flex-col">
+          <div class="font-semibold text-[12px]">heal_all() &amp; bridge cleanup</div>
+          <div class="text-[11px] text-slate-700 leading-snug">Reverts active faults · reaps stale libvirt bridges.</div>
+          <div class="mt-auto text-[10px] text-slate-500"><code class="path">injection.py:320</code> · <code class="path">vm/network_cleanup.py</code></div>
+        </div>
+        <div class="col-span-2 planned border-2 rounded px-2 py-1.5">
+          <span class="planned-chip text-[10px] px-1.5 py-0.5 rounded">Planned</span>
+          <span class="text-[11px] text-slate-700 ml-1">Data migration / backup hooks before teardown — snapshot logs &amp; state for post-hoc analysis.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="planned border-2 rounded-lg p-2.5 flex flex-col overflow-hidden">
+      <div class="flex items-center justify-between">
+        <div class="band-label">Band 3b · Roadmap</div>
+        <span class="planned-chip text-[10px] px-1.5 py-0.5 rounded">Planned — not yet implemented</span>
+      </div>
+      <ul class="mt-1.5 grid grid-cols-2 gap-x-3 gap-y-1 text-[11px] text-slate-700 flex-1">
+        <li><span class="font-semibold">Background scoring</span> — continuous health probe after agent exit.</li>
+        <li><span class="font-semibold">Lifecycle impact</span> — re-verify under sustained load.</li>
+        <li><span class="font-semibold">Longevity tests</span> — workload regression checks.</li>
+        <li><span class="font-semibold">Multi-tenant impact</span> — noisy-neighbour on shared infra.</li>
+        <li><span class="font-semibold">Resource accounting</span> — CPU/mem/disk/net cost of the fix.</li>
+        <li><span class="font-semibold">Formal taxonomy</span> — layer × fault class × phase coverage.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

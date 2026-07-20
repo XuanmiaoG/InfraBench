@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>InfraBench — Design</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  .anchor-offset { scroll-margin-top: 5rem; }
+  .planned { border-style: dashed; border-color: rgb(251 191 36); }
+  .planned-chip { background: rgb(254 243 199); color: rgb(146 64 14); }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] > summary .chev { transform: rotate(90deg); }
+  .chev { transition: transform .15s ease; display: inline-block; }
+  code.path { font-size: .8em; color: rgb(71 85 105); background: rgb(241 245 249); padding: 1px 6px; border-radius: 4px; }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+<!-- ============ NAV ============ -->
+<nav class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
+    <span class="font-semibold text-slate-900 mr-2">InfraBench</span>
+    <a href="#overview" class="text-slate-600 hover:text-slate-900">Overview</a>
+    <a href="#spec" class="text-slate-600 hover:text-slate-900">Specification</a>
+    <a href="#provisioning" class="text-slate-600 hover:text-slate-900">Provisioning</a>
+    <a href="#lifecycle" class="text-slate-600 hover:text-slate-900">Lifecycle</a>
+    <a href="#tasks" class="text-slate-600 hover:text-slate-900">Tasks</a>
+    <a href="#longterm" class="text-slate-600 hover:text-slate-900">Long-Term</a>
+    <a href="#roadmap" class="text-slate-600 hover:text-slate-900">Roadmap</a>
+    <span class="ml-auto text-xs text-slate-500">Architecture views:</span>
+    <a href="arch-pipeline.html" class="text-indigo-700 hover:underline">Pipeline</a>
+    <a href="arch-concentric.html" class="text-indigo-700 hover:underline">Concentric</a>
+    <a href="arch-bands.html" class="text-indigo-700 hover:underline">Bands</a>
+    <a href="arch-paper.html" class="text-indigo-700 hover:underline">Paper</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header id="overview" class="anchor-offset">
+  <div class="max-w-6xl mx-auto px-4 py-14">
+    <h1 class="text-4xl font-bold tracking-tight">InfraBench: A Benchmark for AI Agents on Infrastructure Operations</h1>
+    <p class="mt-5 text-lg text-slate-700 max-w-4xl">
+      InfraBench evaluates AI agents on real systems work — provisioning machines, bringing distributed services
+      up from blank state, diagnosing and remediating faults under realistic failure conditions, and tearing
+      environments down cleanly. Unlike ITBench or DevOps Gym, we model infrastructure as a six-layer stack
+      (L1 hardware → L6 service), provide a layered fault injector that exercises each layer through its
+      native Linux primitives, and run each trial in its own isolated KVM virtual machine so thousands of
+      tasks can execute concurrently without interference.
+    </p>
+
+    <!-- stat strip -->
+    <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl">
+      <div class="rounded-lg border border-slate-200 bg-white p-4">
+        <div class="text-2xl font-semibold">6</div>
+        <div class="text-xs uppercase tracking-wide text-slate-500">infrastructure layers</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-white p-4">
+        <div class="text-2xl font-semibold">4</div>
+        <div class="text-xs uppercase tracking-wide text-slate-500">provisioning levels</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-white p-4">
+        <div class="text-2xl font-semibold">3</div>
+        <div class="text-xs uppercase tracking-wide text-slate-500">environment types</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-white p-4">
+        <div class="text-2xl font-semibold">6+</div>
+        <div class="text-xs uppercase tracking-wide text-slate-500">fault injectors</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ INFRASPECIFICATION ============ -->
+<section id="spec" class="anchor-offset bg-white border-t border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-14">
+    <h2 class="text-2xl font-bold">1. InfraSpecification</h2>
+    <p class="mt-2 text-slate-600">The vocabulary InfraBench uses to describe an infrastructure system: its physical substrate, the layers it runs on, and the dependencies between them.</p>
+
+    <!-- Environment types -->
+    <h3 class="mt-8 text-lg font-semibold">Environment types</h3>
+    <div class="mt-3 grid md:grid-cols-3 gap-4">
+      <div class="rounded-lg border border-slate-200 p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Bare metal / physical</div>
+        <div class="mt-1 font-semibold">CloudLab nodes</div>
+        <p class="mt-2 text-sm text-slate-600">Dedicated hardware with kernel-level access, real NICs and disks. Used when virtualization itself is under test.</p>
+        <div class="mt-3"><code class="path">src/syscraft/infra/baremetal/cloudlab.py</code></div>
+      </div>
+      <div class="rounded-lg border border-slate-200 p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Virtual machine</div>
+        <div class="mt-1 font-semibold">KVM via libvirt</div>
+        <p class="mt-2 text-sm text-slate-600">Single-node or multi-node VM clusters. Per-trial isolation by disk, NIC, and bridge. Required when tasks need kernel modules or block devices.</p>
+        <div class="mt-3 space-x-2">
+          <code class="path">src/syscraft/infra/vm/standalone.py</code>
+          <code class="path">src/syscraft/infra/vm/cluster.py</code>
+        </div>
+      </div>
+      <div class="rounded-lg border border-slate-200 p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Container</div>
+        <div class="mt-1 font-semibold">Docker</div>
+        <p class="mt-2 text-sm text-slate-600">Default for application-layer tasks. Fastest start-up; shared kernel limits the fault classes that can be exercised.</p>
+        <div class="mt-3"><code class="path">src/syscraft/infra/container/docker.py</code></div>
+      </div>
+    </div>
+
+    <!-- Layer table -->
+    <h3 class="mt-10 text-lg font-semibold">Layers L1–L6 (click a row to expand)</h3>
+    <p class="text-sm text-slate-600">Each layer has its own representative fault classes, its own networked-fault flavor, and a typical substrate it runs on. Click any row to see which fault injector and which provisioning engine cover that layer in code.</p>
+    <div class="mt-3 overflow-hidden rounded-lg border border-slate-200 bg-white">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-100 text-left text-slate-700">
+          <tr>
+            <th class="px-4 py-2">Layer</th>
+            <th class="px-4 py-2">Representative fault classes</th>
+            <th class="px-4 py-2">Networked faults</th>
+            <th class="px-4 py-2">Typical substrate</th>
+          </tr>
+        </thead>
+        <tbody id="layer-tbody" class="divide-y divide-slate-100">
+          <!-- rows injected by JS for compactness -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Dependency diagram -->
+    <h3 class="mt-10 text-lg font-semibold">Dependency view</h3>
+    <p class="text-sm text-slate-600">A higher layer's faults can only manifest if every layer below it is up.</p>
+    <div class="mt-3 max-w-md">
+      <div class="space-y-1">
+        <div class="rounded bg-indigo-100 border border-indigo-200 px-3 py-2 text-sm">L6 — Service</div>
+        <div class="rounded bg-indigo-100 border border-indigo-200 px-3 py-2 text-sm ml-2">L5 — Platform (orchestrators)</div>
+        <div class="rounded bg-indigo-100 border border-indigo-200 px-3 py-2 text-sm ml-4">L4 — Storage / Data</div>
+        <div class="rounded bg-indigo-100 border border-indigo-200 px-3 py-2 text-sm ml-6">L3 — Kernel</div>
+        <div class="rounded bg-indigo-100 border border-indigo-200 px-3 py-2 text-sm ml-8">L2 — Virtualization</div>
+        <div class="rounded bg-indigo-100 border border-indigo-200 px-3 py-2 text-sm ml-10">L1 — Hardware</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROVISIONING ============ -->
+<section id="provisioning" class="anchor-offset border-t border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-14">
+    <h2 class="text-2xl font-bold">2. Provisioning Engine / Manager</h2>
+    <p class="mt-2 text-slate-600">Different layers of the stack need different provisioning machinery. InfraBench exposes a uniform <code class="path">BaseEnvironment</code> interface, but underneath each level talks to a distinct API.</p>
+
+    <div class="mt-6 grid md:grid-cols-2 gap-4">
+      <div class="rounded-lg border border-slate-200 bg-white p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Hardware level</div>
+        <div class="font-semibold">CloudLab / bare metal</div>
+        <p class="mt-2 text-sm text-slate-600">Allocates physical nodes from a CloudLab profile and exposes them over SSH. Isolation is hardware-grade; concurrency is bounded by the pool size.</p>
+        <div class="mt-3 text-xs text-slate-500">API: CloudLab portal + SSH · <code class="path">src/syscraft/infra/baremetal/cloudlab.py</code></div>
+      </div>
+
+      <div class="rounded-lg border border-slate-200 bg-white p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Hypervisor level</div>
+        <div class="font-semibold">libvirt + KVM</div>
+        <p class="mt-2 text-sm text-slate-600">Single-node and multi-node VM clusters. Each trial gets a unique VM name <code class="path">syscraft-{safe_id}</code>, its own qcow2 disk under <code class="path">_work_dir/{vm}/disk.qcow2</code>, and its own libvirt network whose bridge name is derived from a hash of the session id (Linux's 15-char bridge limit).</p>
+        <div class="mt-3 text-xs text-slate-500">API: libvirt XML, virt-customize, Netplan, cloud-init seed ISO · <code class="path">src/syscraft/infra/vm/standalone.py</code></div>
+      </div>
+
+      <div class="rounded-lg border border-slate-200 bg-white p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Container level</div>
+        <div class="font-semibold">Docker</div>
+        <p class="mt-2 text-sm text-slate-600">Default substrate. One container per trial; image build is cached. Cheapest concurrency but shared kernel.</p>
+        <div class="mt-3 text-xs text-slate-500">API: Docker SDK · <code class="path">src/syscraft/infra/container/docker.py</code></div>
+      </div>
+
+      <div class="rounded-lg border border-slate-200 bg-white p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Application bootstrap</div>
+        <div class="font-semibold">setup.sh + bootstrap.sh</div>
+        <p class="mt-2 text-sm text-slate-600">
+          <strong>setup.sh</strong> runs once on image build (apt install, image caching, machine prep).
+          <strong>bootstrap.sh</strong> runs after the machine boots, every trial — starts the application infrastructure
+          (Redis, Ceph, HDFS, etcd, Cassandra…) and drives the system into the desired testing state (e.g. broken
+          config, OSD down, partitioned cluster).
+        </p>
+        <div class="mt-3 text-xs text-slate-500">Per-task: <code class="path">tasks/&lt;task&gt;/environment/{setup.sh,bootstrap.sh}</code></div>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+      <strong>Concurrency model.</strong> The <code class="path">TrialQueue</code>
+      (<code class="path">src/syscraft/trial/queue.py:13</code>) bounds concurrency with an
+      <code>asyncio.Semaphore(n_concurrent)</code> at line 39. Trials run on isolated environments
+      (VM, container, or bare-metal node) so thousands can execute in parallel without sharing state.
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIFECYCLE ============ -->
+<section id="lifecycle" class="anchor-offset bg-white border-t border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-14">
+    <h2 class="text-2xl font-bold">3. InfraLifecycle</h2>
+    <p class="mt-2 text-slate-600">Three phases, each with its own evaluation question and its own runtime machinery.</p>
+
+    <!-- Deployment -->
+    <div class="mt-8 rounded-lg border border-slate-200 p-5">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-semibold">3.1 Deployment</h3>
+        <span class="text-xs px-2 py-1 rounded bg-emerald-100 text-emerald-800">Implemented</span>
+      </div>
+      <blockquote class="mt-2 border-l-4 border-indigo-300 pl-3 text-slate-700 italic text-sm">
+        Can the agent provision and configure infrastructure from a known blank state to a working state?
+      </blockquote>
+      <p class="mt-3 text-sm text-slate-700">
+        InfraBench separates provisioning into two stages, run by InfraBench itself (not the agent) when the
+        task author wants a known starting state, or assigned to the agent when provisioning itself is the task:
+      </p>
+      <ul class="mt-2 list-disc pl-6 text-sm text-slate-700 space-y-1">
+        <li><strong>Setup</strong> — bring the machine(s) up: CPU/memory/network, cache Ubuntu / application images, install OS-level packages.</li>
+        <li><strong>Bootstrap</strong> — start the application infrastructure (Redis / Ceph / HDFS / etcd / Cassandra) and drive it to the desired testing state (broken config, OSD down, partitioned replicas).</li>
+      </ul>
+      <p class="mt-3 text-sm text-slate-700">
+        Multiple trials run concurrently on fully isolated environments — distinct KVM VMs with their own
+        disks, NICs, and libvirt networks — coordinated by <code class="path">TrialQueue</code>.
+      </p>
+    </div>
+
+    <!-- Management -->
+    <div class="mt-6 rounded-lg border border-slate-200 p-5">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-semibold">3.2 Management</h3>
+        <span class="text-xs px-2 py-1 rounded bg-emerald-100 text-emerald-800">Implemented</span>
+      </div>
+      <blockquote class="mt-2 border-l-4 border-indigo-300 pl-3 text-slate-700 italic text-sm">
+        Can the agent operate live infrastructure under realistic failure conditions — detecting, diagnosing, and remediating faults while maintaining service availability?
+      </blockquote>
+
+      <div class="mt-4 grid md:grid-cols-2 gap-4">
+        <div class="rounded border border-slate-200 bg-slate-50 p-4">
+          <div class="font-semibold">Scenario engine</div>
+          <p class="mt-1 text-sm text-slate-700">
+            Orchestrates concurrent execution of agent and fault timeline. A <code>ScenarioController</code>
+            implements <code>execute(api)</code>; the <code>ScenarioExecutor</code> runs it alongside the agent.
+            Three completion modes: <code>AGENT_EXIT</code>, <code>TIMEBOXED</code>, <code>SCENARIO_DRIVEN</code>.
+          </p>
+          <div class="mt-2 text-xs text-slate-500">
+            <code class="path">src/syscraft/fault/scenario/{controller.py,executor.py,api.py,completion.py}</code>
+          </div>
+        </div>
+
+        <div class="rounded border border-slate-200 bg-slate-50 p-4">
+          <div class="font-semibold">Fault injectors</div>
+          <ul class="mt-1 text-sm text-slate-700 space-y-1">
+            <li><strong>Process kill</strong> (pkill) — <code class="path">injection.py:71</code></li>
+            <li><strong>Network partition</strong> (iptables DROP) — <code class="path">injection.py:95</code></li>
+            <li><strong>Disk delay</strong> (tc) — <code class="path">injection.py:159</code></li>
+            <li><strong>Disk fill</strong> (dd) — <code class="path">injection.py:223</code></li>
+            <li><strong>CPU stress</strong> — <code class="path">injection.py:268</code></li>
+            <li><strong>Network shaping</strong> (tc/netem latency, loss, bandwidth) — <code class="path">src/syscraft/fault/network.py</code></li>
+          </ul>
+          <p class="mt-2 text-xs text-slate-500">All are reversible via <code>heal_all()</code> at <code class="path">injection.py:320</code>.</p>
+        </div>
+
+        <div class="rounded border border-slate-200 bg-slate-50 p-4">
+          <div class="font-semibold">Verification executor</div>
+          <p class="mt-1 text-sm text-slate-700">
+            <code>PeriodicVerifierRunner</code> runs the task's <code>tests/test.sh</code> on a configurable
+            interval during the scenario, parses the reward, and reports back to the scenario engine.
+          </p>
+          <div class="mt-2 text-xs text-slate-500">
+            <code class="path">src/syscraft/fault/scenario/periodic_verifier.py:20</code>
+          </div>
+        </div>
+
+        <div class="rounded border border-slate-200 bg-slate-50 p-4">
+          <div class="font-semibold">Event / timeline logger</div>
+          <p class="mt-1 text-sm text-slate-700">
+            <code>ScenarioEventLog</code> is an append-only log of <code>ScenarioEvent</code>s
+            (<code>timestamp</code>, <code>elapsed_sec</code>, <code>name</code>, <code>data</code>). It captures
+            the full timeline of agent actions, injected faults, and score changes for each trial.
+          </p>
+          <div class="mt-2 text-xs text-slate-500">
+            <code class="path">src/syscraft/fault/scenario/events.py</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decommission -->
+    <div class="mt-6 rounded-lg border border-slate-200 p-5">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-semibold">3.3 Decommission</h3>
+        <span class="text-xs px-2 py-1 rounded bg-emerald-100 text-emerald-800">Implemented (core)</span>
+      </div>
+      <p class="mt-3 text-sm text-slate-700">Clean teardown after every trial keeps the host reusable and prevents resource leaks across the thousands of concurrent runs in a benchmark sweep.</p>
+      <ul class="mt-2 list-disc pl-6 text-sm text-slate-700 space-y-1">
+        <li><code>BaseEnvironment.stop(delete=bool)</code> at <code class="path">src/syscraft/infra/base.py:291</code> — <code>delete=True</code> destroys the VM, removes the qcow2 disk, drops the libvirt network; <code>delete=False</code> preserves them for post-mortem debugging.</li>
+        <li><code>FaultInjector.heal_all()</code> (<code class="path">injection.py:320</code>) reverts every active fault before stop.</li>
+        <li>Stale bridges / networks are reaped by <code class="path">src/syscraft/infra/vm/network_cleanup.py</code> on the next start.</li>
+        <li>Optional <code>on_teardown(api)</code> hook on the scenario controller for custom cleanup.</li>
+      </ul>
+
+      <div class="mt-4 planned border-2 rounded p-3">
+        <span class="planned-chip text-xs px-2 py-0.5 rounded font-semibold">Planned — not yet implemented</span>
+        <p class="mt-2 text-sm text-slate-700">
+          <strong>Data migration / backup on decommission.</strong> The current teardown deletes per-trial state;
+          we plan to add hooks that snapshot logs, application state, or evicted data to a long-term store before
+          the environment is destroyed, so post-hoc analysis can compare the system's final state across many trials.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TASKS ============ -->
+<section id="tasks" class="anchor-offset border-t border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-14">
+    <h2 class="text-2xl font-bold">4. TaskScenario</h2>
+    <p class="mt-2 text-slate-600">Concrete units of evaluation. A task pairs an instruction with a reproducible environment and a verifier.</p>
+
+    <h3 class="mt-8 text-lg font-semibold">Task types</h3>
+    <div class="mt-3 grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded border border-slate-200 bg-white p-3"><div class="font-semibold">Deployment</div><div class="text-slate-600">Provision a service from scratch (e.g. NFS, LVM, etcd cluster).</div></div>
+      <div class="rounded border border-slate-200 bg-white p-3"><div class="font-semibold">Failure handling</div><div class="text-slate-600">Redis fault recovery, Cassandra replica corruption.</div></div>
+      <div class="rounded border border-slate-200 bg-white p-3"><div class="font-semibold">Debugging</div><div class="text-slate-600">Pelican namespace key mismatch, etcd slow leader election.</div></div>
+      <div class="rounded border border-slate-200 bg-white p-3"><div class="font-semibold">Migration</div><div class="text-slate-600">Move services or data between nodes without downtime.</div></div>
+      <div class="rounded border border-slate-200 bg-white p-3"><div class="font-semibold">Configuration</div><div class="text-slate-600">Fix broken service configs, RBAC, feature flags.</div></div>
+      <div class="rounded border border-slate-200 bg-white p-3"><div class="font-semibold">Storage / Network</div><div class="text-slate-600">Cassandra read-repair, network partition recovery.</div></div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold">Anatomy of a task</h3>
+    <pre class="mt-3 text-xs bg-slate-900 text-slate-100 rounded-lg p-4 overflow-x-auto">tasks/&lt;task-name&gt;/
+├── task.toml              # environment type, resources, timeouts, metadata
+├── instruction.md         # what the agent is asked to do (natural language)
+├── environment/
+│   ├── setup.sh           # one-time machine prep (apt install, image cache)
+│   └── bootstrap.sh       # per-trial: start services, drive to test state
+├── tests/
+│   └── test.sh            # verifier; writes reward to /logs/verifier/reward.txt|.json
+├── solution/              # optional reference solution
+└── scenario.py            # optional: ScenarioController for fault timeline</pre>
+
+    <h3 class="mt-10 text-lg font-semibold">Ground truth &amp; scoring</h3>
+    <ul class="mt-2 list-disc pl-6 text-sm text-slate-700 space-y-1">
+      <li>The verifier writes reward to <code class="path">/logs/verifier/reward.txt</code> or <code class="path">reward.json</code>; the parser lives at <code class="path">src/syscraft/verifier/verifier.py:145</code>.</li>
+      <li>Initial score (right after bootstrap, before the agent runs) is captured so we can measure improvement, not just final state.</li>
+      <li>Periodic re-verification captures the score's evolution over the lifetime of the scenario, recorded in the event log.</li>
+    </ul>
+
+    <h3 class="mt-10 text-lg font-semibold">Differences from related work</h3>
+    <div class="mt-3 grid md:grid-cols-2 gap-4 text-sm">
+      <div class="rounded border border-slate-200 bg-white p-4">
+        <div class="font-semibold">Scope</div>
+        <p class="mt-1 text-slate-700">
+          InfraBench prefers the <em>smallest unit that still captures the operational concern</em> — smaller than
+          most ITBench tasks, and explicitly composable. Larger, more autonomous tasks are still supported by
+          chaining scenarios, but the unit of measurement stays small.
+        </p>
+      </div>
+      <div class="rounded border border-slate-200 bg-white p-4">
+        <div class="font-semibold">Layered composition</div>
+        <p class="mt-1 text-slate-700">
+          Because tasks declare the layer they target (L1–L6) and the fault classes they exercise, tasks can be
+          composed across layers via the scenario engine — e.g. an L3 kernel fault that triggers an L4 storage
+          fault that propagates to an L6 service.
+        </p>
+      </div>
+      <div class="rounded border border-slate-200 bg-white p-4">
+        <div class="font-semibold">Reversible faults only</div>
+        <p class="mt-1 text-slate-700">
+          Like prior incident-response benchmarks, InfraBench currently rewards <em>temporary fixes</em> — the
+          score measures whether the system returns to a healthy state, not whether the fix is the long-term
+          correct one. Long-term impact evaluation is on the roadmap (see §5).
+        </p>
+      </div>
+      <div class="rounded border border-slate-200 bg-white p-4">
+        <div class="font-semibold">Task author workflow</div>
+        <p class="mt-1 text-slate-700">
+          An author writes <code class="path">task.toml</code>, <code class="path">instruction.md</code>,
+          <code class="path">setup.sh</code> / <code class="path">bootstrap.sh</code>, and a verifier script.
+          Adding a fault timeline is opt-in via <code class="path">scenario.py</code>.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-6 planned border-2 rounded p-3">
+      <span class="planned-chip text-xs px-2 py-0.5 rounded font-semibold">Planned — not yet implemented</span>
+      <p class="mt-2 text-sm text-slate-700">
+        <strong>Formal task taxonomy.</strong> Today, task <code>category</code> / <code>tags</code> in
+        <code class="path">task.toml</code> are free-form strings (currently a mix of
+        <code>systems_administration</code>, <code>programming</code>, <code>security</code>, <code>gpu</code>,
+        and so on). We plan to publish a closed taxonomy keyed on the L1–L6 layer, the fault class, and the
+        lifecycle phase (deployment / management / decommission) so coverage can be reported per cell.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LONG TERM (Planned) ============ -->
+<section id="longterm" class="anchor-offset bg-white border-t border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-14">
+    <div class="planned border-2 rounded-lg p-6">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-bold">5. Long-Term Monitoring &amp; Environmental Impact</h2>
+        <span class="planned-chip text-xs px-2 py-1 rounded font-semibold">Planned — not yet implemented</span>
+      </div>
+      <p class="mt-3 text-slate-700">
+        The current benchmark verifies the system once at the end of a trial (and periodically during the
+        scenario). What it does <em>not</em> yet measure is what happens <em>after</em> the agent claims success:
+        does the fix survive a restart, sustained load, or weeks of operation? Does it degrade a neighbouring
+        tenant on the same physical host? This whole section is part of the design roadmap; it is not yet
+        implemented in the framework.
+      </p>
+      <ul class="mt-4 list-disc pl-6 text-sm text-slate-700 space-y-2">
+        <li><strong>Multi-task / background scoring.</strong> Run a continuous health probe on the repaired system after the agent exits; record a background score over hours or days.</li>
+        <li><strong>Lifecycle impact.</strong> Restart the host, the service, or the entire cluster after the agent's fix and re-verify — does the fix survive?</li>
+        <li><strong>Longevity tests.</strong> Replay realistic workloads against the repaired system to surface latent regressions the immediate verifier misses.</li>
+        <li><strong>Multi-tenant impact.</strong> Co-locate independent trials on shared infrastructure and measure noisy-neighbour effects — did the agent's fix steal resources from another tenant?</li>
+        <li><strong>Scheduling &amp; resource provisioning.</strong> Track CPU / memory / disk / network consumed by the agent's actions and the resulting system, so a "correct" fix that 10× the resource cost is scored accordingly.</li>
+      </ul>
+      <p class="mt-4 text-sm text-slate-600 italic">
+        Listed here so contributors and reviewers can see the intended scope of InfraBench beyond what the
+        current implementation exercises.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section id="roadmap" class="anchor-offset border-t border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-14">
+    <h2 class="text-2xl font-bold">6. Roadmap (Planned items in one place)</h2>
+    <ul class="mt-4 space-y-3 text-sm">
+      <li class="flex gap-3 items-start">
+        <span class="planned-chip text-xs px-2 py-0.5 rounded font-semibold shrink-0 mt-0.5">Planned</span>
+        <span><a href="#lifecycle" class="text-indigo-700 hover:underline">Decommission</a>: data migration / backup hooks before environment teardown.</span>
+      </li>
+      <li class="flex gap-3 items-start">
+        <span class="planned-chip text-xs px-2 py-0.5 rounded font-semibold shrink-0 mt-0.5">Planned</span>
+        <span><a href="#tasks" class="text-indigo-700 hover:underline">Tasks</a>: formal task taxonomy keyed on layer × fault class × lifecycle phase.</span>
+      </li>
+      <li class="flex gap-3 items-start">
+        <span class="planned-chip text-xs px-2 py-0.5 rounded font-semibold shrink-0 mt-0.5">Planned</span>
+        <span><a href="#longterm" class="text-indigo-700 hover:underline">Long-term monitoring</a>: background scoring, lifecycle impact, longevity tests, multi-tenant impact, resource accounting.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-slate-200 bg-white">
+  <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-slate-600 flex flex-wrap gap-4 items-center justify-between">
+    <div>InfraBench design reference · Syscraft framework</div>
+    <div class="space-x-4">
+      <a class="text-indigo-700 hover:underline" href="https://github.com/syscraft-framework/syscraft">repo</a>
+      <a class="text-indigo-700 hover:underline" href="../../paper/">paper/</a>
+      <a class="text-indigo-700 hover:underline" href="../../README.md">README</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ DATA + INTERACTIVITY ============ -->
+<script>
+const layers = [
+  {
+    layer: "L6 Service",
+    faults: "Misconfiguration, env/feature flags, deployment faults",
+    netFaults: "Service discovery, endpoint churn",
+    substrate: "Container",
+    injectors: "Process kill (injection.py:71), config break via bootstrap.sh",
+    provisioning: "Application bootstrap (bootstrap.sh) on top of Container / VM"
+  },
+  {
+    layer: "L5 Platform",
+    faults: "Scheduler deadlock, RBAC, control-plane faults",
+    netFaults: "API-server partition, node isolation",
+    substrate: "Container / K8s",
+    injectors: "partition_network (injection.py:95), heal_network (injection.py:135)",
+    provisioning: "Docker; K8s brought up by bootstrap.sh"
+  },
+  {
+    layer: "L4 Storage / Data",
+    faults: "Quorum loss, replica divergence, WAL corruption",
+    netFaults: "Replica partition, slow links",
+    substrate: "Distributed systems",
+    injectors: "add_disk_delay (injection.py:159), fill_disk (injection.py:223), partition_network",
+    provisioning: "VM cluster (cluster.py) — needed for real disks and isolated NICs"
+  },
+  {
+    layer: "L3 Kernel",
+    faults: "Syscall faults, OOM, clock skew, module failures",
+    netFaults: "TCP drops, routing/table faults",
+    substrate: "VM / bare metal",
+    injectors: "stress_cpu (injection.py:268), tc/netem network shaping (network.py)",
+    provisioning: "VM (standalone.py) or CloudLab bare metal"
+  },
+  {
+    layer: "L2 Virtualization",
+    faults: "Runtime / isolation faults, provisioning failures",
+    netFaults: "vSwitch / bridge faults",
+    substrate: "VM",
+    injectors: "Bridge teardown, network_cleanup.py exercises",
+    provisioning: "libvirt + KVM (standalone.py, cluster.py)"
+  },
+  {
+    layer: "L1 Hardware",
+    faults: "Disk / NIC failures, power loss, DRAM ECC",
+    netFaults: "NIC faults, link loss",
+    substrate: "Bare metal",
+    injectors: "Disk fill / delay simulate device wear; link loss via tc",
+    provisioning: "CloudLab (baremetal/cloudlab.py)"
+  }
+];
+
+const tbody = document.getElementById('layer-tbody');
+layers.forEach((l, i) => {
+  const tr = document.createElement('tr');
+  tr.className = i % 2 ? 'bg-white' : 'bg-slate-50/40';
+  tr.innerHTML = `
+    <td class="px-4 py-2 font-semibold align-top">
+      <details>
+        <summary><span class="chev mr-1 text-slate-400">▸</span>${l.layer}</summary>
+        <div class="mt-2 text-xs font-normal text-slate-700 space-y-1">
+          <div><span class="text-slate-500">Fault injector:</span> ${l.injectors}</div>
+          <div><span class="text-slate-500">Provisioning:</span> ${l.provisioning}</div>
+        </div>
+      </details>
+    </td>
+    <td class="px-4 py-2 align-top text-slate-700">${l.faults}</td>
+    <td class="px-4 py-2 align-top text-slate-700">${l.netFaults}</td>
+    <td class="px-4 py-2 align-top text-slate-700">${l.substrate}</td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>

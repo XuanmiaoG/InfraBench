@@ -1,0 +1,33 @@
+schema_version = "1.1"
+
+[task]
+name = "syscraft/cassandra-dead-node-removal"
+description = "A Cassandra cluster node has physically failed and is permanently unreachable. Remove it from the ring and restore service on the surviving two-node cluster."
+keywords = ["cassandra", "bare-metal", "dead-node", "removenode", "cluster-recovery"]
+
+[metadata]
+difficulty = "hard"
+tags = ["cassandra", "bare-metal", "distributed-systems", "node-removal", "sre"]
+
+[verifier]
+timeout_sec = 180.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+type = "cloudlab"
+build_timeout_sec = 1800.0
+
+[[environment.nodes]]
+name = "node0"
+host = "c220g1-030804.wisc.cloudlab.us"
+roles = ["primary"]
+
+[[environment.nodes]]
+name = "node1"
+host = "c220g1-030819.wisc.cloudlab.us"
+
+[[environment.nodes]]
+name = "node2"
+host = "c220g1-030820.wisc.cloudlab.us"

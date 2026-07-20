@@ -1,0 +1,110 @@
+[task]
+name = "syscraft/vm-ceph-bootstrap"
+version = "0.1.0"
+
+[metadata]
+author_name = "Yuan Gao"
+author_email = "gaoy31@gmail.com"
+author_organization = "University of Wisconsin - Madison"
+
+difficulty = "hard"
+difficulty_explanation = """\
+End-to-end Ceph cluster deployment across 7 KVM VMs: bootstrap with cephadm, \
+join 6 worker nodes, bring up OSDs on loop-backed data disks, create both a \
+replicated pool (size=3) and an erasure-coded pool (jerasure k=4 m=2 host \
+failure domain), then create a 100 GiB RBD image, map it on the primary, \
+format XFS, and mount it. A correct deployment cannot be hallucinated — every \
+step requires real cluster state to converge.\
+"""
+
+solution_explanation = """\
+On node0: cephadm --image quay.io/ceph/ceph:v19.2.0 bootstrap --mon-ip <node0 \
+private IP from /etc/syscraft/cluster-info> --allow-fqdn-hostname. Distribute \
+the cluster SSH key, ceph orch host add node1..node6, ceph orch apply osd \
+--all-available-devices (picks up /dev/loop0 and /dev/loop1 on every node), \
+ceph osd pool create data_rep then set size=3 and application rbd, define an \
+EC profile (plugin=jerasure technique=reed_sol_van k=4 m=2 \
+crush-failure-domain=host) and create data_ec from it, rbd create \
+data_rep/bench_image --size 102400, rbd map, mkfs.xfs, mount /mnt/ceph_data.\
+"""
+
+verification_explanation = """\
+Vendored copy of cephbench judge.sh runs on node0 and scores 0–100 across 7 \
+checks: cluster reachable (5), HEALTH_OK (15), data_rep replicated size=3 \
+app=rbd (15), data_ec jerasure reed_sol_van k=4 m=2 host-domain (15), \
+bench_image RBD ~100 GiB (20), /mnt/ceph_data mounted (20), write+read probe \
+on the mount (10). Reward = score / 100.\
+"""
+
+category = "systems_administration"
+tags = [
+    "ceph",
+    "cephadm",
+    "distributed-storage",
+    "rbd",
+    "erasure-coding",
+    "linux",
+    "vm-cluster",
+]
+expert_time_estimate_hours = 1.5
+
+[environment]
+type = "vm-cluster"
+vm_backend = "libvirt"
+base_image = "ubuntu-24.04"
+network = "192.168.100.0/24"
+
+[[environment.nodes]]
+name = "node0"
+cpus = 2
+memory_mb = 8192
+storage_mb = 102400
+roles = ["ceph-mon", "ceph-mgr", "ceph-osd", "primary"]
+
+[[environment.nodes]]
+name = "node1"
+cpus = 2
+memory_mb = 8192
+storage_mb = 102400
+roles = ["ceph-osd"]
+
+[[environment.nodes]]
+name = "node2"
+cpus = 2
+memory_mb = 8192
+storage_mb = 102400
+roles = ["ceph-osd"]
+
+[[environment.nodes]]
+name = "node3"
+cpus = 2
+memory_mb = 8192
+storage_mb = 102400
+roles = ["ceph-osd"]
+
+[[environment.nodes]]
+name = "node4"
+cpus = 2
+memory_mb = 8192
+storage_mb = 102400
+roles = ["ceph-osd"]
+
+[[environment.nodes]]
+name = "node5"
+cpus = 2
+memory_mb = 8192
+storage_mb = 102400
+roles = ["ceph-osd"]
+
+[[environment.nodes]]
+name = "node6"
+cpus = 2
+memory_mb = 8192
+storage_mb = 102400
+roles = ["ceph-osd"]
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 240

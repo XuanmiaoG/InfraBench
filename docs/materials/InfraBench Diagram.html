@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>InfraBench Diagram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F172A;
+    --ink-sub:#334155;
+
+    /* Task Specification — blue */
+    --c1-deep:#1E3A8A; --c1-mid:#2563EB; --c1-soft:#EFF6FF; --c1-line:#BFDBFE;
+    /* Executor — green */
+    --c2-deep:#14532D; --c2-mid:#15803D; --c2-soft:#F0FDF4; --c2-line:#BBF7D0;
+    /* Infrastructure Agent (inside Executor) — purple */
+    --c3-deep:#581C87; --c3-mid:#7C3AED; --c3-soft:#FAF5FF; --c3-line:#DDD6FE;
+    /* Risk Monitor — red */
+    --c4-deep:#9F1239; --c4-mid:#DC2626; --c4-soft:#FEF2F2; --c4-line:#FECACA;
+    /* Full-lifecycle Checker — violet */
+    --c5-deep:#4C1D95; --c5-mid:#7C3AED; --c5-soft:#F5F3FF; --c5-line:#DDD6FE;
+    /* Outputs — indigo */
+    --c6-deep:#1E3A8A; --c6-mid:#3B82F6; --c6-soft:#EEF2FF; --c6-line:#C7D2FE;
+    /* Scenario Manager — amber */
+    --cs-deep:#92400E; --cs-mid:#D97706; --cs-soft:#FFFBEB; --cs-line:#FDE68A;
+
+    --shadow: 0 1px 2px rgba(15,23,42,0.04), 0 6px 16px -8px rgba(15,23,42,0.10);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#F8FAFC;color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+  .stage{
+    width:2004px; height:440px;
+    position:relative;
+    background:#FFFFFF;
+    padding:0;
+  }
+
+  /* ------------ Flat unified frame ------------- */
+  .grand{
+    position:absolute; inset:0;
+    background:#FFFFFF;
+    border:1.5px solid #94A3B8;
+    border-radius:16px;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns: 580px 540px 660px 224px;
+  }
+  .col{
+    display:flex; flex-direction:column;
+    min-height:0;
+  }
+  .col-1, .col-2, .col-3{ border-right:3.5px solid #94A3B8; }
+  .col-head{
+    height:34px;
+    display:flex; align-items:center; justify-content:center;
+    color:#FFFFFF;
+    font-weight:800; font-size:19px; letter-spacing:.2px;
+  }
+  .col-1 .col-head{background:var(--c1-deep)}
+  .col-2 .col-head{background:var(--c2-deep)}
+  .col-3 .col-head{background:var(--c5-deep)}
+  .col-4 .col-head{background:var(--c6-deep)}
+  .col-body{
+    flex:1; padding:12px;
+    display:flex; flex-direction:column;
+    min-height:0;
+    background:#FFFFFF;
+  }
+
+  /* Minor (within-section) dividers */
+  .div-h{ height:1px; background:#E2E8F0; margin:8px -12px; flex:0 0 1px }
+  .div-v{ width:1px; background:#E2E8F0; align-self:stretch }
+
+  /* Sub-section heading row */
+  .sub-title{
+    font-size:17px; font-weight:800; letter-spacing:.2px;
+    color:var(--deep); text-transform:uppercase;
+    margin:0 0 9px;
+  }
+
+  /* ------------ Legacy styles (used inside flat layout) ------------- */
+
+  /* Card (panel) -- only used now for groups that still need a visible chip */
+  .card{
+    background:#FFFFFF;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:10px 12px;
+  }
+  .card-title{
+    font-size:15px; font-weight:800; color:var(--deep);
+    text-align:center; margin:0 0 6px; letter-spacing:.2px; text-transform:uppercase;
+  }
+  .divider{
+    height:1px; background:linear-gradient(90deg,transparent, var(--line),transparent);
+    margin:6px 0 8px;
+  }
+
+  /* Row item with icon + label */
+  .row{
+    display:flex; align-items:center; gap:12px;
+    padding:7px 6px;
+    font-size:18px; color:#0F172A;
+    font-weight:700;
+  }
+  .row .ic{
+    width:28px;height:28px;flex:0 0 28px;
+    display:grid;place-items:center;
+    border-radius:6px;
+    background:rgba(0,0,0,0);
+  }
+  .row .ic svg{width:24px;height:24px}
+
+  /* L-stack row (target layers) */
+  .ll{
+    display:flex; align-items:center; gap:11px;
+    padding:7px 12px;
+    border-radius:10px;
+    font-size:16px; font-weight:600;
+    color:#0F172A;
+    margin-bottom:5px;
+  }
+  .ll .lbadge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:34px;height:26px;border-radius:6px;
+    font-weight:800;font-size:15px;
+    background:#FFFFFF; border:1.5px solid currentColor;
+  }
+  .ll-1{background:#FFF7ED; color:#9A3412}
+  .ll-2{background:#FFFBEB; color:#92400E}
+  .ll-3{background:#FEFCE8; color:#854D0E}
+  .ll-4{background:#ECFDF5; color:#065F46}
+  .ll-5{background:#EFF6FF; color:#1E40AF}
+  .ll-6{background:#F5F3FF; color:#5B21B6}
+
+  /* Tag/pill */
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 12px; border-radius:10px;
+    background:#FFFFFF; border:1.5px solid var(--line);
+    font-weight:700; font-size:13px; color:var(--deep);
+    min-width:0;
+    box-shadow:0 1px 2px rgba(0,0,0,0.03);
+  }
+  .pill svg{width:18px;height:18px}
+
+  /* bulleted lists inside cards */
+  .bullets{margin:4px 0 0; padding:0 0 0 4px; list-style:none}
+  .bullets li{
+    position:relative;
+    padding:6px 0 6px 22px;
+    font-size:18px; color:#0F172A; font-weight:700;
+    line-height:1.35;
+  }
+  .bullets li::before{
+    content:"";
+    position:absolute; left:4px; top:16px;
+    width:7px;height:7px;border-radius:50%;
+    background:var(--mid);
+  }
+
+  /* Section themers */
+  .theme-1{ --deep:var(--c1-deep); --mid:var(--c1-mid); --line:var(--c1-line); --soft:var(--c1-soft); }
+  .theme-2{ --deep:var(--c2-deep); --mid:var(--c2-mid); --line:var(--c2-line); --soft:var(--c2-soft); }
+  .theme-3{ --deep:var(--c3-deep); --mid:var(--c3-mid); --line:var(--c3-line); --soft:var(--c3-soft); }
+  .theme-4{ --deep:var(--c4-deep); --mid:var(--c4-mid); --line:var(--c4-line); --soft:var(--c4-soft); }
+  .theme-5{ --deep:var(--c5-deep); --mid:var(--c5-mid); --line:var(--c5-line); --soft:var(--c5-soft); }
+  .theme-6{ --deep:var(--c6-deep); --mid:var(--c6-mid); --line:var(--c6-line); --soft:var(--c6-soft); }
+  .theme-s{ --deep:var(--cs-deep); --mid:var(--cs-mid); --line:var(--cs-line); --soft:var(--cs-soft); }
+
+  /* Arrows between sections */
+  .arrow{position:absolute; pointer-events:none}
+
+  /* Bottom flow boxes (Backend Prep → Env Setup → Agent Op) */
+  .flowbox{
+    position:absolute;
+    border-radius:12px;
+    background:#FFFFFF;
+    border:1.6px solid;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;
+    font-weight:800;font-size:16px;
+    padding:8px 10px;
+    box-shadow:0 2px 6px rgba(15,23,42,.06);
+  }
+
+  /* Output card */
+  .out-card{
+    display:flex; align-items:center; gap:12px;
+    padding:10px 12px;
+  }
+  .out-card .ic{
+    width:42px;height:42px;border-radius:10px;
+    background:linear-gradient(135deg,#EEF2FF,#DBEAFE);
+    display:grid;place-items:center;
+    color:var(--c6-mid);
+    flex:0 0 42px;
+  }
+  .out-card .ic svg{width:24px;height:24px}
+  .out-card .lab{
+    font-weight:800;font-size:17px;color:#0F172A; line-height:1.2;
+  }
+  .out-card .sub{
+    font-weight:500;font-size:11.5px;color:#475569;margin-top:2px;
+  }
+
+  /* Backend icons box */
+  .backend-row{
+    display:flex; align-items:center; gap:13px; padding:6px 4px;
+    font-size:18px;
+    color:#0F172A;
+    font-weight:800;
+  }
+  .backend-row .pic{
+    width:36px;height:36px;border-radius:9px;
+    display:grid;place-items:center;
+    flex:0 0 36px;
+  }
+  .backend-row .pic svg{width:26px;height:26px}
+
+  /* Tool grid for Infra agent */
+  .tool-grid{
+    display:grid; grid-template-columns:1fr; gap:6px; margin-top:6px;
+  }
+  .tool{
+    display:flex; align-items:center; gap:10px;
+    padding:8px 12px;
+    background:#FFFFFF;
+    border:1.4px solid var(--c3-line);
+    border-radius:10px;
+    font-weight:800; font-size:16px; color:#0F172A;
+    min-width:0;
+    white-space:nowrap;
+    overflow:hidden;
+  }
+  .tool .ic{
+    width:26px;height:26px;border-radius:6px;
+    background:linear-gradient(135deg,#F5F3FF,#EDE9FE);
+    color:var(--c3-mid);
+    display:grid;place-items:center;
+    flex:0 0 26px;
+  }
+  .tool .ic svg{width:18px;height:18px}
+
+  /* Risk monitor strip */
+  .risk-row{
+    display:flex; align-items:center; gap:14px;
+    padding:6px 4px; font-size:14px; color:#3F0712;
+    flex-wrap:wrap;
+  }
+  .risk-chip{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#FFFFFF;border:1.4px solid var(--c4-line);
+    border-radius:999px; padding:8px 14px;
+    font-size:15.5px; font-weight:700; color:#0F172A;
+  }
+  .risk-chip svg{width:20px;height:20px;color:var(--c4-mid);flex:0 0 20px}
+
+  /* Eval cards */
+  .eval-card{
+    background:#FFFFFF;border:1.5px solid var(--c5-line);
+    border-radius:14px; padding:10px;
+    display:flex;flex-direction:column;
+  }
+  .eval-card h4{
+    margin:0 0 4px; font-size:15.5px; color:var(--c5-deep);
+    font-weight:800; text-align:center; line-height:1.2;
+  }
+
+  /* small label headers */
+  .mini-head{
+    font-size:16px; font-weight:800; letter-spacing:.2px;
+    text-align:center; color:var(--deep);
+    text-transform:none;
+  }
+  .grouplabel{
+    display:inline-block;
+    font-size:15px;font-weight:800;
+    padding:6px 18px;border-radius:999px;
+    background:var(--mid); color:#FFFFFF;
+    white-space:nowrap;
+    line-height:1.2;
+  }  /* Section 1 overrides (flat layout) */
+  .theme-1 .row{padding:3px 4px; font-size:15.5px; font-weight:700; color:#0F172A; gap:10px}
+  .theme-1 .row .ic{width:24px;height:24px;flex:0 0 24px}
+  .theme-1 .row .ic svg{width:20px;height:20px}
+  .theme-1 .ll{padding:5px 10px; margin-bottom:0; font-size:15px; gap:9px}
+  .theme-1 .ll .lbadge{width:28px;height:22px;font-size:13px}
+
+  /* Section 3 (Evaluator) overrides */
+  .theme-5 .bullets li{font-size:18px; padding:4px 0 4px 18px; line-height:1.3; font-weight:700}
+  .theme-5 .bullets li::before{top:14px; left:3px; width:6px; height:6px}
+  .theme-5 .risk-chip{font-size:17px; padding:8px 14px}
+  .theme-5 .risk-chip svg{width:20px;height:20px;flex:0 0 20px}
+  .theme-5 .grouplabel{font-size:15px; padding:4px 14px}
+  .theme-5 .eval-card h4{font-size:19px; margin:0 0 10px; line-height:1.2; color:var(--c5-deep); font-weight:800; text-align:left}
+  .theme-5 .eval-card{justify-content:flex-start; border:none; box-shadow:none; padding:0}
+
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Icon symbols -->
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><polyline points="9 12 11 14 15 10"/></symbol>
+    <symbol id="i-shield-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r=".8" fill="currentColor"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18h11a4 4 0 0 0 .4-7.98A6 6 0 0 0 6.7 9 4.5 4.5 0 0 0 7 18z"/></symbol>
+    <symbol id="i-vm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="3" y1="14" x2="21" y2="14"/><line x1="9" y1="21" x2="15" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></symbol>
+    <symbol id="i-docker" viewBox="0 0 24 24" fill="currentColor"><path d="M22 11.5c-.4-.4-1.5-.6-2.6-.4-.1-1-.7-1.9-1.6-2.6l-.5-.4-.4.5c-.5.7-.7 1.7-.6 2.5.1.4.2.7.4 1H2.6c-.4 0-.6.3-.6.7C2 14 2.6 16 4 17.4c1.2 1.2 2.9 1.7 5.2 1.6 4-.1 7.1-1.7 9.1-4.6 1.2-1.7 1.7-3.4 1.8-3.6 0-.2.1-.4.1-.4l-.2.1zM4.5 11h2v-2h-2v2zm0-3h2V6h-2v2zm3 3h2v-2h-2v2zm0-3h2V6h-2v2zm0-3h2V3h-2v2zm3 6h2v-2h-2v2zm0-3h2V6h-2v2zm3 3h2v-2h-2v2z"/></symbol>
+    <symbol id="i-k8s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 2.6l8.5 4v8l-8.5 4-8.5-4v-8z"/><path d="M12 7v10M7 9l10 6M7 15l10-6"/></symbol>
+    <symbol id="i-bare" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><rect x="3" y="10" width="18" height="5" rx="1"/><rect x="3" y="16" width="18" height="5" rx="1"/><circle cx="6" cy="6.5" r=".7" fill="currentColor"/><circle cx="6" cy="12.5" r=".7" fill="currentColor"/><circle cx="6" cy="18.5" r=".7" fill="currentColor"/></symbol>
+    <symbol id="i-shell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><polyline points="7 9 10 12 7 15"/><line x1="13" y1="15" x2="17" y2="15"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1A2 2 0 1 1 4.3 17l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="5" rx="8" ry="2.5"/><path d="M4 5v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V5"/><path d="M4 11v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-6"/></symbol>
+    <symbol id="i-cloud2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 18h11a4 4 0 0 0 .4-7.98A6 6 0 0 0 6.7 9 4.5 4.5 0 0 0 7 18z"/></symbol>
+    <symbol id="i-ssh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 12h.01M11 12h.01M15 12h.01M19 12h.01"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></symbol>
+    <symbol id="i-bar" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="13" width="4" height="8" rx=".6"/><rect x="10" y="8" width="4" height="13" rx=".6"/><rect x="16" y="4" width="4" height="17" rx=".6"/></symbol>
+    <symbol id="i-pie" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2v10h10A10 10 0 1 1 12 2z" opacity=".25"/><path d="M13 3a9 9 0 0 1 8 8h-8V3z"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></symbol>
+    <symbol id="i-logs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="13" y2="18"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-2V2H7v2H5a2 2 0 0 0-2 2v2c0 2.5 2 4.5 4.4 4.9.7 2.2 2.5 3.8 4.6 4V18H8v3h8v-3h-4v-1.1c2.1-.2 3.9-1.8 4.6-4C19 12.5 21 10.5 21 8V6a2 2 0 0 0-2-2zM5 8V6h2v4.8C5.8 10.4 5 9.3 5 8zm14 0c0 1.3-.8 2.4-2 2.8V6h2v2z"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="3" x2="15" y2="3"/><path d="M10 3v6L5 19a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 19l-5-10V3"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+    <symbol id="i-restart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8"/><polyline points="21 3 21 8 16 8"/><path d="M21 12a9 9 0 0 1-15.5 6.3L3 16"/><polyline points="3 21 3 16 8 16"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1.2 14.1A2 2 0 0 1 15.8 22H8.2a2 2 0 0 1-2-1.9L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></symbol>
+    <symbol id="i-arrow-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></symbol>
+    <symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></symbol>
+    <symbol id="i-fire" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2s4 4 4 8a4 4 0 1 1-8 0c0-1.5.6-2.6 1.2-3.4.4-.6.4-1.6-.2-1.6C7 5 6 8 6 11a6 6 0 1 0 12 0c0-6-5-9-5-9z"/></symbol>
+  </defs>
+</svg>
+
+<div class="stage">
+  <div class="grand">
+
+    <!-- ============== 1. TASK SPECIFICATION ============== -->
+    <div class="col col-1 theme-1">
+      <div class="col-head">1. Task Specification</div>
+      <div class="col-body">
+        <!-- Top: Task Package + Target Layers side by side -->
+        <div style="display:flex; gap:14px; flex:1 1 0; min-height:0;">
+          <div style="flex:1; display:flex; flex-direction:column; min-width:0">
+            <div class="sub-title">Task Package / Scenario</div>
+            <div style="flex:1; display:flex; flex-direction:column; justify-content:space-around">
+              <div class="row"><span class="ic" style="color:#2563EB"><svg><use href="#i-doc"/></svg></span>Instruction</div>
+              <div class="row"><span class="ic" style="color:#0891B2"><svg><use href="#i-doc"/></svg></span>Setup / Bootstrap Spec</div>
+              <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="#EAB308"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>Fault / Workload Spec</div>
+              <div class="row"><span class="ic" style="color:#7C3AED"><svg><use href="#i-search"/></svg></span>Verifier / Oracle Spec</div>
+              <div class="row"><span class="ic" style="color:#16A34A"><svg><use href="#i-shield"/></svg></span>Lifecycle Policy</div>
+            </div>
+          </div>
+          <div class="div-v"></div>
+          <div style="flex:1; display:flex; flex-direction:column; min-width:0">
+            <div class="sub-title">Target Layers</div>
+            <div style="flex:1; display:flex; flex-direction:column; justify-content:space-around; gap:5px">
+              <div class="ll ll-1"><span class="lbadge">L1</span>Hardware</div>
+              <div class="ll ll-2"><span class="lbadge">L2</span>Local Systems</div>
+              <div class="ll ll-4"><span class="lbadge">L3</span>Distributed Systems</div>
+              <div class="ll ll-6"><span class="lbadge">L4</span>User Apps</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="div-h"></div>
+
+        <!-- Bottom: Task Coverage -->
+        <div style="display:flex; flex-direction:column; flex:1 1 0; min-height:0;">
+          <div class="sub-title">Task Coverage</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:7px; flex:1">
+            <div style="padding:8px 10px;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;display:flex;align-items:center;gap:9px">
+              <svg style="width:20px;height:20px;color:#2563EB;flex:0 0 20px"><use href="#i-flask"/></svg>
+              <span style="font-weight:700;color:#1E3A8A;font-size:15px">University Infra</span>
+            </div>
+            <div style="padding:8px 10px;background:#ECFEFF;border:1px solid #A5F3FC;border-radius:8px;display:flex;align-items:center;gap:9px">
+              <svg style="width:20px;height:20px;color:#0891B2;flex:0 0 20px"><use href="#i-doc"/></svg>
+              <span style="font-weight:700;color:#155E75;font-size:15px">Academia Testbed</span>
+            </div>
+            <div style="padding:8px 10px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;display:flex;align-items:center;gap:9px">
+              <svg style="width:20px;height:20px;color:#16A34A;flex:0 0 20px"><use href="#i-bare"/></svg>
+              <span style="font-weight:700;color:#14532D;font-size:15px">Open-source Infra</span>
+            </div>
+            <div style="padding:8px 10px;background:#FEFCE8;border:1px solid #FDE68A;border-radius:8px;display:flex;align-items:center;gap:9px">
+              <svg style="width:20px;height:20px;color:#CA8A04;flex:0 0 20px"><use href="#i-search"/></svg>
+              <span style="font-weight:700;color:#854D0E;font-size:15px">Research Prototypes</span>
+            </div>
+            <div style="grid-column:span 2;padding:8px 10px;background:#F5F3FF;border:1px solid #DDD6FE;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:9px">
+              <svg style="width:20px;height:20px;color:#7C3AED;flex:0 0 20px"><use href="#i-cloud2"/></svg>
+              <span style="font-weight:700;color:#4C1D95;font-size:15px">Commercial Clouds</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============== 2. EXECUTOR ============== -->
+    <div class="col col-2 theme-2">
+      <div class="col-head">2. Executor</div>
+      <div class="col-body">
+        <!-- Top: Execution Backend + Scenario Manager -->
+        <div style="display:flex; gap:14px; flex:1.1 1 0; min-height:0;">
+          <div style="flex:1; display:flex; flex-direction:column; min-width:0">
+            <div class="sub-title">Execution Backend</div>
+            <div style="flex:1; display:flex; flex-direction:column; justify-content:space-around">
+              <div class="backend-row"><span class="pic" style="background:#F1F5F9;color:#475569"><svg><use href="#i-bare"/></svg></span>Bare Metal</div>
+              <div class="backend-row"><span class="pic" style="background:#FAE8FF;color:#9333EA"><svg><use href="#i-vm"/></svg></span>Virtual Machine</div>
+              <div class="backend-row"><span class="pic" style="background:#CFFAFE;color:#0E7490"><svg><use href="#i-docker"/></svg></span>Docker</div>
+              <div class="backend-row"><span class="pic" style="background:#E0E7FF;color:#4338CA"><svg><use href="#i-k8s"/></svg></span>Kubernetes</div>
+            </div>
+          </div>
+          <div class="div-v"></div>
+          <div style="flex:1; display:flex; flex-direction:column; min-width:0">
+            <div class="sub-title" style="color:var(--cs-deep)">Scenario Manager</div>
+            <ul class="bullets" style="--mid:#D97706; flex:1; display:flex; flex-direction:column; justify-content:center; gap:3px; margin:0; padding-left:4px">
+              <li>Setup Control</li>
+              <li>Workload / Fault Orchestration</li>
+              <li>Environment Management</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="div-h"></div>
+
+        <!-- Bottom: flow -->
+        <div style="position:relative; flex:0 0 110px; min-height:110px">
+          <div class="flowbox" style="left:0; top:18px; width:108px; height:74px; border-color:var(--c2-mid); color:var(--c2-deep); background:#F0FDF4; font-size:16px; line-height:1.2">
+            Backend<br/>Preparation
+          </div>
+          <svg class="arrow" style="left:108px; top:48px; width:24px; height:20px" viewBox="0 0 24 20"><line x1="2" y1="10" x2="16" y2="10" stroke="#15803D" stroke-width="2.4" stroke-linecap="round"/><polygon points="16,4 24,10 16,16" fill="#15803D"/></svg>
+          <div class="flowbox" style="left:132px; top:18px; width:138px; height:74px; border-color:var(--c2-mid); color:var(--c2-deep); background:#F0FDF4; font-size:16px; line-height:1.2">
+            Environment<br/>Setup / Bootstrap
+          </div>
+          <svg class="arrow" style="left:270px; top:48px; width:24px; height:20px" viewBox="0 0 24 20"><line x1="2" y1="10" x2="16" y2="10" stroke="#7C3AED" stroke-width="2.4" stroke-linecap="round"/><polygon points="16,4 24,10 16,16" fill="#7C3AED"/></svg>
+          <div class="flowbox" style="left:294px; top:0; width:198px; height:110px; border-color:var(--c3-mid); color:var(--c3-deep); background:#FAF5FF; flex-direction:column; padding:9px 10px; gap:5px">
+            <div style="font-weight:800; font-size:15px; line-height:1.15; text-align:center">Agent Operation Window</div>
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4C1D95" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2.5" y="3.5" width="19" height="17" rx="2.5"/>
+              <polyline points="7 9 10.5 12 7 15"/>
+              <line x1="13" y1="15" x2="17.5" y2="15"/>
+            </svg>
+            <div style="font-size:12.5px; font-weight:700; color:#7C3AED; text-align:center; line-height:1.25">shell &middot; kubectl &middot; SSH &middot; &hellip;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============== 3. EVALUATOR ============== -->
+    <div class="col col-3 theme-5">
+      <div class="col-head">3. Evaluator</div>
+      <div class="col-body" style="padding-left:22px">
+
+        <!-- Risk monitor -->
+        <div style="flex:0 0 auto">
+          <div class="sub-title" style="color:var(--c4-deep)">
+            <svg width="14" height="14" style="vertical-align:-2px;margin-right:5px;color:var(--c4-mid)"><use href="#i-shield-warn"/></svg>
+            Risk Monitor
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px;">
+            <span class="risk-chip"><svg><use href="#i-pulse"/></svg>Agent &amp; Env. State</span>
+            <span class="risk-chip"><svg><use href="#i-ban"/></svg>Destructive Cmds</span>
+            <span class="risk-chip"><svg><use href="#i-fire"/></svg>Blast Radius</span>
+            <span class="risk-chip"><svg><use href="#i-shield"/></svg>Unrelated-Svc Safety</span>
+          </div>
+        </div>
+
+        <div class="div-h"></div>
+
+        <!-- Full-lifecycle Checker -->
+        <div style="flex:1; display:flex; flex-direction:column; min-height:0">
+          <div style="text-align:center; margin-bottom:6px">
+            <span style="display:inline-block; padding:4px 16px; background:var(--c5-mid); color:#FFF; border-radius:999px; font-size:15px; font-weight:800; letter-spacing:.2px">Full-lifecycle Checker</span>
+          </div>
+          <div style="flex:1; display:grid; grid-template-columns: 0.95fr 1px 2.5fr; gap:14px; min-height:0;">
+            <!-- Short-term column -->
+            <div style="display:flex; flex-direction:column; min-width:0">
+              <div style="display:flex; align-items:center; gap:9px; font-weight:800; color:var(--c5-deep); font-size:22px; margin-bottom:14px">
+                <svg width="22" height="22" style="color:#F59E0B"><use href="#i-clock"/></svg>Short-term
+              </div>
+              <div style="font-weight:800; color:var(--c5-deep); font-size:21px; margin-bottom:10px">Immediate Evaluation</div>
+              <ul class="bullets" style="--mid:var(--c5-mid); margin:0; padding:0">
+                <li>Service Health &amp; Config</li>
+                <li>Cluster &amp; Data State</li>
+              </ul>
+            </div>
+
+            <div style="width:1px; background:#E2E8F0; align-self:stretch"></div>
+
+            <!-- Long-term column -->
+            <div style="display:flex; flex-direction:column; min-width:0">
+              <div style="display:flex; align-items:center; gap:9px; font-weight:800; color:var(--c5-deep); font-size:22px; margin-bottom:14px">
+                <svg width="22" height="22" style="color:#DC2626"><use href="#i-cal"/></svg>Long-term
+              </div>
+              <div style="flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px">
+                <div class="eval-card">
+                  <h4>Live Evaluation</h4>
+                  <ul class="bullets" style="--mid:var(--c5-mid)">
+                    <li>Probes Under Workload</li>
+                    <li>Unstable-Recovery Check</li>
+                  </ul>
+                </div>
+                <div class="eval-card">
+                  <h4>Restart / Durability</h4>
+                  <ul class="bullets" style="--mid:var(--c5-mid)">
+                    <li>Service / Host Reboot</li>
+                    <li>Invariants Persist</li>
+                  </ul>
+                </div>
+                <div class="eval-card">
+                  <h4>Decommission</h4>
+                  <ul class="bullets" style="--mid:var(--c5-mid)">
+                    <li>Teardown Resources</li>
+                    <li>No Leftover State</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============== 4. OUTPUTS ============== -->
+    <div class="col col-4 theme-6">
+      <div class="col-head">4. Outputs</div>
+      <div class="col-body" style="padding:8px 10px; gap:0">
+        <div class="out-card" style="flex:1">
+          <div class="ic"><svg><use href="#i-bar"/></svg></div>
+          <div class="lab">Per-Trial<br/>Score</div>
+        </div>
+        <div class="div-h" style="margin:0 -10px"></div>
+        <div class="out-card" style="flex:1">
+          <div class="ic" style="background:linear-gradient(135deg,#FAE8FF,#F5D0FE);color:#9333EA"><svg><use href="#i-pie"/></svg></div>
+          <div class="lab">Phase<br/>Breakdown</div>
+        </div>
+        <div class="div-h" style="margin:0 -10px"></div>
+        <div class="out-card" style="flex:1">
+          <div class="ic" style="background:linear-gradient(135deg,#DCFCE7,#BBF7D0);color:#15803D"><svg><use href="#i-trend"/></svg></div>
+          <div class="lab">Timeline /<br/>Trajectory</div>
+        </div>
+        <div class="div-h" style="margin:0 -10px"></div>
+        <div class="out-card" style="flex:1">
+          <div class="ic" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#B45309"><svg><use href="#i-trophy"/></svg></div>
+          <div class="lab">Artifacts /<br/>Leaderboard</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Flow chevrons overlaid on each major divider, lowered into bottom whitespace -->
+  <svg style="position:absolute; left:570px; top:340px; width:24px; height:24px; z-index:5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.5"/><polygon points="9,6 17,12 9,18" fill="#2563EB"/></svg>
+  <svg style="position:absolute; left:1110px; top:340px; width:24px; height:24px; z-index:5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.5"/><polygon points="9,6 17,12 9,18" fill="#15803D"/></svg>
+  <svg style="position:absolute; left:1768px; top:340px; width:24px; height:24px; z-index:5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.5"/><polygon points="9,6 17,12 9,18" fill="#7C3AED"/></svg>
+
+</div>
+
+</body>
+</html>

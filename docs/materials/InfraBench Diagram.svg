@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2004" height="440" viewBox="0 0 2004 440" font-family="Inter, 'Helvetica Neue', Arial, sans-serif">
+<rect x="0" y="0" width="2004" height="440" rx="16.0" ry="16.0" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.5"/>
+<rect x="3" y="3" width="575" height="33" fill="#1E3A8A" stroke="none"/>
+<text x="290.5" y="19.5" font-size="17" fill="#FFFFFF" font-weight="700" text-anchor="middle" dominant-baseline="central">1. Task Specification</text>
+<rect x="581" y="3" width="537" height="33" fill="#14532D" stroke="none"/>
+<text x="849.5" y="19.5" font-size="17" fill="#FFFFFF" font-weight="700" text-anchor="middle" dominant-baseline="central">2. Executor</text>
+<rect x="1121" y="3" width="657" height="33" fill="#4C1D95" stroke="none"/>
+<text x="1449.5" y="19.5" font-size="17" fill="#FFFFFF" font-weight="700" text-anchor="middle" dominant-baseline="central">3. Evaluator</text>
+<rect x="1781" y="3" width="220" height="33" fill="#1E3A8A" stroke="none"/>
+<text x="1891.0" y="19.5" font-size="17" fill="#FFFFFF" font-weight="700" text-anchor="middle" dominant-baseline="central">4. Outputs</text>
+<rect x="578" y="36" width="3" height="402" fill="#94A3B8" stroke="none"/>
+<rect x="1118" y="36" width="3" height="402" fill="#94A3B8" stroke="none"/>
+<rect x="1778" y="36" width="3" height="402" fill="#94A3B8" stroke="none"/>
+<text x="16.0" y="53.0" font-size="13" fill="#1E3A8A" font-weight="700" text-anchor="start" dominant-baseline="central">TASK PACKAGE / SCENARIO</text>
+<g transform="translate(18,70) scale(0.8333)"><g fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></g></g>
+<text x="46.0" y="80.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Instruction</text>
+<g transform="translate(18,100) scale(0.8333)"><g fill="none" stroke="#0891B2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></g></g>
+<text x="46.0" y="110.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Setup / Bootstrap Spec</text>
+<g transform="translate(18,130) scale(0.8333)"><g fill="#EAB308"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></g></g>
+<text x="46.0" y="140.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Fault / Workload Spec</text>
+<g transform="translate(18,160) scale(0.8333)"><g fill="none" stroke="#7C3AED" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></g></g>
+<text x="46.0" y="170.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Verifier / Oracle Spec</text>
+<g transform="translate(18,190) scale(0.8333)"><g fill="none" stroke="#16A34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><polyline points="9 12 11 14 15 10"/></g></g>
+<text x="46.0" y="200.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Lifecycle Policy</text>
+<rect x="292" y="48" width="1" height="166" fill="#E2E8F0" stroke="none"/>
+<text x="306.0" y="53.0" font-size="13" fill="#1E3A8A" font-weight="700" text-anchor="start" dominant-baseline="central">TARGET LAYERS</text>
+<rect x="306" y="72" width="256" height="30" rx="10.0" ry="10.0" fill="#FFF7ED" stroke="none"/>
+<rect x="314" y="76" width="32" height="22" rx="6.0" ry="6.0" fill="#FFFFFF" stroke="#9A3412" stroke-width="1.5"/>
+<text x="330.0" y="87.0" font-size="12" fill="#9A3412" font-weight="700" text-anchor="middle" dominant-baseline="central">L1</text>
+<text x="356.0" y="87.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Hardware</text>
+<rect x="306" y="107" width="256" height="30" rx="10.0" ry="10.0" fill="#FFFBEB" stroke="none"/>
+<rect x="314" y="111" width="32" height="22" rx="6.0" ry="6.0" fill="#FFFFFF" stroke="#92400E" stroke-width="1.5"/>
+<text x="330.0" y="122.0" font-size="12" fill="#92400E" font-weight="700" text-anchor="middle" dominant-baseline="central">L2</text>
+<text x="356.0" y="122.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Local Systems</text>
+<rect x="306" y="142" width="256" height="30" rx="10.0" ry="10.0" fill="#ECFDF5" stroke="none"/>
+<rect x="314" y="146" width="32" height="22" rx="6.0" ry="6.0" fill="#FFFFFF" stroke="#065F46" stroke-width="1.5"/>
+<text x="330.0" y="157.0" font-size="12" fill="#065F46" font-weight="700" text-anchor="middle" dominant-baseline="central">L3</text>
+<text x="356.0" y="157.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Distributed Systems</text>
+<rect x="306" y="177" width="256" height="30" rx="10.0" ry="10.0" fill="#F5F3FF" stroke="none"/>
+<rect x="314" y="181" width="32" height="22" rx="6.0" ry="6.0" fill="#FFFFFF" stroke="#5B21B6" stroke-width="1.5"/>
+<text x="330.0" y="192.0" font-size="12" fill="#5B21B6" font-weight="700" text-anchor="middle" dominant-baseline="central">L4</text>
+<text x="356.0" y="192.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">User Apps</text>
+<rect x="16" y="226" width="540" height="1" fill="#E2E8F0" stroke="none"/>
+<text x="16.0" y="247.0" font-size="13" fill="#1E3A8A" font-weight="700" text-anchor="start" dominant-baseline="central">TASK COVERAGE</text>
+<rect x="16" y="264" width="266" height="40" rx="8.0" ry="8.0" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+<g transform="translate(28,274) scale(0.8333)"><g fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="3" x2="15" y2="3"/><path d="M10 3v6L5 19a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 19l-5-10V3"/></g></g>
+<text x="56.0" y="284.0" font-size="13" fill="#1E3A8A" font-weight="700" text-anchor="start" dominant-baseline="central">University Infra</text>
+<rect x="290" y="264" width="266" height="40" rx="8.0" ry="8.0" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1"/>
+<g transform="translate(302,274) scale(0.8333)"><g fill="none" stroke="#0891B2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></g></g>
+<text x="330.0" y="284.0" font-size="13" fill="#155E75" font-weight="700" text-anchor="start" dominant-baseline="central">Academia Testbed</text>
+<rect x="16" y="310" width="266" height="40" rx="8.0" ry="8.0" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1"/>
+<g transform="translate(28,320) scale(0.8333)"><g fill="none" stroke="#16A34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><rect x="3" y="10" width="18" height="5" rx="1"/><rect x="3" y="16" width="18" height="5" rx="1"/><circle cx="6" cy="6.5" r=".8" fill="#16A34A" stroke="none"/><circle cx="6" cy="12.5" r=".8" fill="#16A34A" stroke="none"/><circle cx="6" cy="18.5" r=".8" fill="#16A34A" stroke="none"/></g></g>
+<text x="56.0" y="330.0" font-size="13" fill="#14532D" font-weight="700" text-anchor="start" dominant-baseline="central">Open-source Infra</text>
+<rect x="290" y="310" width="266" height="40" rx="8.0" ry="8.0" fill="#FEFCE8" stroke="#FDE68A" stroke-width="1"/>
+<g transform="translate(302,320) scale(0.8333)"><g fill="none" stroke="#CA8A04" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></g></g>
+<text x="330.0" y="330.0" font-size="13" fill="#854D0E" font-weight="700" text-anchor="start" dominant-baseline="central">Research Prototypes</text>
+<rect x="16" y="356" width="540" height="40" rx="8.0" ry="8.0" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="1"/>
+<g transform="translate(226.0,366) scale(0.8333)"><g fill="none" stroke="#7C3AED" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h11a4 4 0 0 0 .4-7.98A6 6 0 0 0 6.7 9 4.5 4.5 0 0 0 7 18z"/></g></g>
+<text x="252.0" y="367.4" font-size="13" fill="#4C1D95" font-weight="700" text-anchor="start" dominant-baseline="central">Commercial</text>
+<text x="252.0" y="384.6" font-size="13" fill="#4C1D95" font-weight="700" text-anchor="start" dominant-baseline="central">Clouds</text>
+<text x="596.0" y="53.0" font-size="13" fill="#14532D" font-weight="700" text-anchor="start" dominant-baseline="central">EXECUTION BACKEND</text>
+<rect x="598" y="70" width="32" height="32" rx="9.0" ry="9.0" fill="#F1F5F9" stroke="none"/>
+<g transform="translate(603,75) scale(0.9167)"><g fill="none" stroke="#475569" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><rect x="3" y="10" width="18" height="5" rx="1"/><rect x="3" y="16" width="18" height="5" rx="1"/><circle cx="6" cy="6.5" r=".8" fill="#475569" stroke="none"/><circle cx="6" cy="12.5" r=".8" fill="#475569" stroke="none"/><circle cx="6" cy="18.5" r=".8" fill="#475569" stroke="none"/></g></g>
+<text x="642.0" y="86.0" font-size="14" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Bare Metal</text>
+<rect x="598" y="108" width="32" height="32" rx="9.0" ry="9.0" fill="#FAE8FF" stroke="none"/>
+<g transform="translate(603,113) scale(0.9167)"><g fill="none" stroke="#9333EA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="3" y1="14" x2="21" y2="14"/><line x1="9" y1="21" x2="15" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></g></g>
+<text x="642.0" y="124.0" font-size="14" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Virtual Machine</text>
+<rect x="598" y="146" width="32" height="32" rx="9.0" ry="9.0" fill="#CFFAFE" stroke="none"/>
+<g transform="translate(603,151) scale(0.9167)"><g fill="#0E7490"><path d="M22 11.5c-.4-.4-1.5-.6-2.6-.4-.1-1-.7-1.9-1.6-2.6l-.5-.4-.4.5c-.5.7-.7 1.7-.6 2.5.1.4.2.7.4 1H2.6c-.4 0-.6.3-.6.7C2 14 2.6 16 4 17.4c1.2 1.2 2.9 1.7 5.2 1.6 4-.1 7.1-1.7 9.1-4.6 1.2-1.7 1.7-3.4 1.8-3.6 0-.2.1-.4.1-.4l-.2.1zM4.5 11h2v-2h-2v2zm0-3h2V6h-2v2zm3 3h2v-2h-2v2zm0-3h2V6h-2v2zm0-3h2V3h-2v2zm3 6h2v-2h-2v2zm0-3h2V6h-2v2zm3 3h2v-2h-2v2z"/></g></g>
+<text x="642.0" y="162.0" font-size="14" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Docker</text>
+<rect x="598" y="184" width="32" height="32" rx="9.0" ry="9.0" fill="#E0E7FF" stroke="none"/>
+<g transform="translate(603,189) scale(0.9167)"><g fill="none" stroke="#4338CA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.6l8.5 4v8l-8.5 4-8.5-4v-8z"/><path d="M12 7v10M7 9l10 6M7 15l10-6"/></g></g>
+<text x="642.0" y="200.0" font-size="14" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Kubernetes</text>
+<rect x="854" y="48" width="1" height="174" fill="#E2E8F0" stroke="none"/>
+<text x="868.0" y="53.0" font-size="13" fill="#92400E" font-weight="700" text-anchor="start" dominant-baseline="central">SCENARIO MANAGER</text>
+<ellipse cx="876.0" cy="97.0" rx="4.0" ry="4.0" fill="#D97706" stroke="none"/>
+<text x="890.0" y="97.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Setup Control</text>
+<ellipse cx="876.0" cy="135.0" rx="4.0" ry="4.0" fill="#D97706" stroke="none"/>
+<text x="890.0" y="126.4" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Workload / Fault</text>
+<text x="890.0" y="143.6" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Orchestration</text>
+<ellipse cx="876.0" cy="173.0" rx="4.0" ry="4.0" fill="#D97706" stroke="none"/>
+<text x="890.0" y="173.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Environment Management</text>
+<rect x="592" y="226" width="516" height="1" fill="#E2E8F0" stroke="none"/>
+<rect x="592" y="258" width="108" height="74" rx="12.0" ry="12.0" fill="#F0FDF4" stroke="#15803D" stroke-width="1.6"/>
+<text x="646.0" y="286.4" font-size="13" fill="#14532D" font-weight="700" text-anchor="middle" dominant-baseline="central">Backend</text>
+<text x="646.0" y="303.6" font-size="13" fill="#14532D" font-weight="700" text-anchor="middle" dominant-baseline="central">Preparation</text>
+<line x1="704" y1="295" x2="717.0" y2="295" stroke="#15803D" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="722,295 713.0,289.5 713.0,300.5" fill="#15803D"/>
+<rect x="724" y="258" width="138" height="74" rx="12.0" ry="12.0" fill="#F0FDF4" stroke="#15803D" stroke-width="1.6"/>
+<text x="793.0" y="277.8" font-size="13" fill="#14532D" font-weight="700" text-anchor="middle" dominant-baseline="central">Environment</text>
+<text x="793.0" y="295.0" font-size="13" fill="#14532D" font-weight="700" text-anchor="middle" dominant-baseline="central">Setup /</text>
+<text x="793.0" y="312.2" font-size="13" fill="#14532D" font-weight="700" text-anchor="middle" dominant-baseline="central">Bootstrap</text>
+<line x1="866" y1="295" x2="879.0" y2="295" stroke="#7C3AED" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="884,295 875.0,289.5 875.0,300.5" fill="#7C3AED"/>
+<rect x="886" y="240" width="198" height="110" rx="12.0" ry="12.0" fill="#FAF5FF" stroke="#7C3AED" stroke-width="1.6"/>
+<text x="985.0" y="259.0" font-size="13" fill="#581C87" font-weight="700" text-anchor="middle" dominant-baseline="central">Agent Operation Window</text>
+<g transform="translate(963,270) scale(1.8333)"><g fill="none" stroke="#4C1D95" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="17" rx="2.5"/><polyline points="7 9 10.5 12 7 15"/><line x1="13" y1="15" x2="17.5" y2="15"/></g></g>
+<text x="985.0" y="326.0" font-size="11" fill="#7C3AED" font-weight="700" text-anchor="middle" dominant-baseline="central">shell · kubectl · SSH · …</text>
+<g transform="translate(1144,44) scale(0.6250)"><g fill="none" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r=".9" fill="#DC2626" stroke="none"/></g></g>
+<text x="1164.0" y="53.0" font-size="13" fill="#9F1239" font-weight="700" text-anchor="start" dominant-baseline="central">RISK MONITOR</text>
+<rect x="1144" y="68" width="150" height="34" rx="17.0" ry="17.0" fill="#FFFFFF" stroke="#FECACA" stroke-width="1.4"/>
+<g transform="translate(1155,76) scale(0.7500)"><g fill="none" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 7 12 10 5 14 19 17 12 21 12"/></g></g>
+<text x="1177.0" y="77.1" font-size="12" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Agent &amp; Env.</text>
+<text x="1177.0" y="92.9" font-size="12" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">State</text>
+<rect x="1300" y="68" width="150" height="34" rx="17.0" ry="17.0" fill="#FFFFFF" stroke="#FECACA" stroke-width="1.4"/>
+<g transform="translate(1311,76) scale(0.7500)"><g fill="none" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></g></g>
+<text x="1333.0" y="85.0" font-size="12" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Destructive Cmds</text>
+<rect x="1456" y="68" width="150" height="34" rx="17.0" ry="17.0" fill="#FFFFFF" stroke="#FECACA" stroke-width="1.4"/>
+<g transform="translate(1467,76) scale(0.7500)"><g fill="#DC2626"><path d="M13 2s4 4 4 8a4 4 0 1 1-8 0c0-1.5.6-2.6 1.2-3.4.4-.6.4-1.6-.2-1.6C7 5 6 8 6 11a6 6 0 1 0 12 0c0-6-5-9-5-9z"/></g></g>
+<text x="1489.0" y="85.0" font-size="12" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Blast Radius</text>
+<rect x="1612" y="68" width="150" height="34" rx="17.0" ry="17.0" fill="#FFFFFF" stroke="#FECACA" stroke-width="1.4"/>
+<g transform="translate(1623,76) scale(0.7500)"><g fill="none" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><polyline points="9 12 11 14 15 10"/></g></g>
+<text x="1645.0" y="77.1" font-size="12" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Unrelated-Svc</text>
+<text x="1645.0" y="92.9" font-size="12" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Safety</text>
+<rect x="1142" y="114" width="624" height="1" fill="#E2E8F0" stroke="none"/>
+<rect x="1350" y="122" width="210" height="26" rx="13.0" ry="13.0" fill="#7C3AED" stroke="none"/>
+<text x="1455.0" y="135.0" font-size="13" fill="#FFFFFF" font-weight="700" text-anchor="middle" dominant-baseline="central">Full-lifecycle Checker</text>
+<g transform="translate(1144,162) scale(0.8333)"><g fill="none" stroke="#F59E0B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/></g></g>
+<text x="1170.0" y="171.0" font-size="16" fill="#4C1D95" font-weight="700" text-anchor="start" dominant-baseline="central">Short-term</text>
+<text x="1144.0" y="203.0" font-size="14" fill="#4C1D95" font-weight="700" text-anchor="start" dominant-baseline="central">Immediate Evaluation</text>
+<ellipse cx="1149.5" cy="231.5" rx="3.5" ry="3.5" fill="#7C3AED" stroke="none"/>
+<text x="1162.0" y="223.4" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Service Health &amp;</text>
+<text x="1162.0" y="240.6" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Config</text>
+<ellipse cx="1149.5" cy="259.5" rx="3.5" ry="3.5" fill="#7C3AED" stroke="none"/>
+<text x="1162.0" y="260.0" font-size="13" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Cluster &amp; Data State</text>
+<rect x="1322" y="158" width="1" height="250" fill="#E2E8F0" stroke="none"/>
+<g transform="translate(1338,162) scale(0.8333)"><g fill="none" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></g></g>
+<text x="1364.0" y="171.0" font-size="16" fill="#4C1D95" font-weight="700" text-anchor="start" dominant-baseline="central">Long-term</text>
+<text x="1338.0" y="207.0" font-size="14" fill="#4C1D95" font-weight="700" text-anchor="start" dominant-baseline="central">Live Evaluation</text>
+<ellipse cx="1343.5" cy="235.5" rx="3.5" ry="3.5" fill="#7C3AED" stroke="none"/>
+<text x="1356.0" y="227.8" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Probes Under</text>
+<text x="1356.0" y="244.2" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Workload</text>
+<ellipse cx="1343.5" cy="263.5" rx="3.5" ry="3.5" fill="#7C3AED" stroke="none"/>
+<text x="1356.0" y="255.8" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Unstable-Recovery</text>
+<text x="1356.0" y="272.2" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Check</text>
+<text x="1482.0" y="197.8" font-size="14" fill="#4C1D95" font-weight="700" text-anchor="start" dominant-baseline="central">Restart /</text>
+<text x="1482.0" y="216.2" font-size="14" fill="#4C1D95" font-weight="700" text-anchor="start" dominant-baseline="central">Durability</text>
+<ellipse cx="1487.5" cy="235.5" rx="3.5" ry="3.5" fill="#7C3AED" stroke="none"/>
+<text x="1500.0" y="227.8" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Service / Host</text>
+<text x="1500.0" y="244.2" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Reboot</text>
+<ellipse cx="1487.5" cy="263.5" rx="3.5" ry="3.5" fill="#7C3AED" stroke="none"/>
+<text x="1500.0" y="255.8" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Invariants</text>
+<text x="1500.0" y="272.2" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Persist</text>
+<text x="1626.0" y="207.0" font-size="14" fill="#4C1D95" font-weight="700" text-anchor="start" dominant-baseline="central">Decommission</text>
+<ellipse cx="1631.5" cy="235.5" rx="3.5" ry="3.5" fill="#7C3AED" stroke="none"/>
+<text x="1644.0" y="227.8" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Teardown</text>
+<text x="1644.0" y="244.2" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Resources</text>
+<ellipse cx="1631.5" cy="263.5" rx="3.5" ry="3.5" fill="#7C3AED" stroke="none"/>
+<text x="1644.0" y="255.8" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">No Leftover</text>
+<text x="1644.0" y="272.2" font-size="12.5" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">State</text>
+<rect x="1796" y="69" width="44" height="44" rx="10.0" ry="10.0" fill="#DBEAFE" stroke="none"/>
+<g transform="translate(1807,80) scale(0.9167)"><g fill="#3B82F6"><rect x="4" y="13" width="4" height="8" rx=".6"/><rect x="10" y="8" width="4" height="13" rx=".6"/><rect x="16" y="4" width="4" height="17" rx=".6"/></g></g>
+<text x="1850.0" y="91.0" font-size="14" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Per-Trial Score</text>
+<rect x="1790" y="139" width="204" height="1" fill="#E2E8F0" stroke="none"/>
+<rect x="1796" y="164" width="44" height="44" rx="10.0" ry="10.0" fill="#F5D0FE" stroke="none"/>
+<g transform="translate(1807,175) scale(0.9167)"><g fill="#9333EA"><path d="M12 2v10h10A10 10 0 1 1 12 2z" opacity=".25"/><path d="M13 3a9 9 0 0 1 8 8h-8V3z"/></g></g>
+<text x="1850.0" y="186.0" font-size="14" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Phase Breakdown</text>
+<rect x="1790" y="234" width="204" height="1" fill="#E2E8F0" stroke="none"/>
+<rect x="1796" y="259" width="44" height="44" rx="10.0" ry="10.0" fill="#BBF7D0" stroke="none"/>
+<g transform="translate(1807,270) scale(0.9167)"><g fill="none" stroke="#15803D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></g></g>
+<text x="1850.0" y="271.8" font-size="14" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Timeline /</text>
+<text x="1850.0" y="290.2" font-size="14" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Trajectory</text>
+<rect x="1790" y="329" width="204" height="1" fill="#E2E8F0" stroke="none"/>
+<rect x="1796" y="354" width="44" height="44" rx="10.0" ry="10.0" fill="#FDE68A" stroke="none"/>
+<g transform="translate(1807,365) scale(0.9167)"><g fill="#B45309"><path d="M19 4h-2V2H7v2H5a2 2 0 0 0-2 2v2c0 2.5 2 4.5 4.4 4.9.7 2.2 2.5 3.8 4.6 4V18H8v3h8v-3h-4v-1.1c2.1-.2 3.9-1.8 4.6-4C19 12.5 21 10.5 21 8V6a2 2 0 0 0-2-2zM5 8V6h2v4.8C5.8 10.4 5 9.3 5 8zm14 0c0 1.3-.8 2.4-2 2.8V6h2v2z"/></g></g>
+<text x="1850.0" y="366.8" font-size="14" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Artifacts /</text>
+<text x="1850.0" y="385.2" font-size="14" fill="#0F172A" font-weight="700" text-anchor="start" dominant-baseline="central">Leaderboard</text>
+<ellipse cx="578.0" cy="398.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.5"/>
+<polygon points="574,392 584,398.0 574,404" fill="#2563EB"/>
+<ellipse cx="1118.0" cy="398.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.5"/>
+<polygon points="1114,392 1124,398.0 1114,404" fill="#15803D"/>
+<ellipse cx="1778.0" cy="398.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.5"/>
+<polygon points="1774,392 1784,398.0 1774,404" fill="#7C3AED"/>
+</svg>
