@@ -6,7 +6,7 @@ Published at HotInfra '26 (Workshop on Hot Topics in System Infrastructure), co-
 
 ## Canonical links
 
-- Website: https://xuanmiaog.github.io/InfraBench/
+- Website: https://infraben.ch/
 - Paper (PDF): https://hotinfra.org/2026/papers/hotinfra26-final71.pdf
 - HotInfra 2026 workshop: https://hotinfra.org/2026/
 - GitHub: https://github.com/XuanmiaoG/InfraBench

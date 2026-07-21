@@ -1,6 +1,6 @@
 <!-- Hero (PNG — GitHub README does not reliably render SVG) -->
 <p align="center">
-  <a href="https://xuanmiaog.github.io/InfraBench/">
+  <a href="https://infraben.ch/">
     <img
       src="docs/assets/readme-hero.png"
       alt="InfraBench — A benchmark for infrastructure agents (HotInfra '26)"
@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://xuanmiaog.github.io/InfraBench/"><strong>Leaderboard</strong></a>
+  <a href="https://infraben.ch/"><strong>Leaderboard</strong></a>
   &nbsp;·&nbsp;
   <a href="https://hotinfra.org/2026/papers/hotinfra26-final71.pdf"><strong>Paper (PDF)</strong></a>
   &nbsp;·&nbsp;
@@ -103,7 +103,7 @@ InfraBench/
 }
 ```
 
-[Project site](https://xuanmiaog.github.io/InfraBench/) · [PDF](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf) · [HotInfra '26](https://hotinfra.org/2026/) · [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en)
+[Project site](https://infraben.ch/) · [PDF](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf) · [HotInfra '26](https://hotinfra.org/2026/) · [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en)
 
 ---
 
@@ -116,7 +116,7 @@ InfraBench/
 ---
 
 <p align="center">
-  <a href="https://xuanmiaog.github.io/InfraBench/">Site</a>
+  <a href="https://infraben.ch/">Site</a>
   ·
   <a href="https://hotinfra.org/2026/papers/hotinfra26-final71.pdf">Paper</a>
   ·

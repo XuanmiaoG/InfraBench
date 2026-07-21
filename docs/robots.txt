@@ -1,4 +1,4 @@
-# InfraBench — https://xuanmiaog.github.io/InfraBench/
+# InfraBench — https://infraben.ch/
 User-agent: *
 Allow: /
 
@@ -23,4 +23,4 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Sitemap: https://xuanmiaog.github.io/InfraBench/sitemap.xml
+Sitemap: https://infraben.ch/sitemap.xml
