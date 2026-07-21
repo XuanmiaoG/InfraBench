@@ -44,9 +44,9 @@ This is the **public** InfraBench surface: curated task packages (instruction, e
 | Task | Layer | Diff. | Backend |
 |------|:-----:|:-----:|---------|
 | [`hello-world`](tasks/hello-world/) | — | Easy | Docker · start here |
-| [`ipmi-node-power-recovery`](tasks/ipmi-node-power-recovery/) | L1 | Easy | CloudLab |
-| [`cassandra-nic-split-brain`](tasks/cassandra-nic-split-brain/) | L2 | Medium | CloudLab |
-| [`cassandra-dead-node-removal`](tasks/cassandra-dead-node-removal/) | L3 | Medium | CloudLab |
+| [`ipmi-node-power-recovery`](tasks/ipmi-node-power-recovery/) | L1 | Easy | BM Cluster |
+| [`cassandra-nic-split-brain`](tasks/cassandra-nic-split-brain/) | L2 | Medium | BM Cluster |
+| [`cassandra-dead-node-removal`](tasks/cassandra-dead-node-removal/) | L3 | Medium | BM Cluster |
 | [`vm-ceph-bootstrap`](tasks/vm-ceph-bootstrap/) | L3 | Hard | VM cluster |
 | [`db-wal-recovery`](tasks/db-wal-recovery/) | L4 | Hard | Container |
 

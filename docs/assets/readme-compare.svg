@@ -22,7 +22,7 @@
   <!-- RIGHT: InfraBench accent bar (site left-rule language, not a card) -->
   <rect x="556" y="148" width="3" height="162" fill="#B0321C"/>
   <text x="576" y="162" font-family="IBM Plex Mono, Consolas, monospace" font-size="11" letter-spacing="1.8" fill="#B0321C">INFRABENCH</text>
-  <text x="576" y="198" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#1C1A16">Docker · KVM · CloudLab bare metal</text>
+  <text x="576" y="198" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#1C1A16">Docker · KVM · BM Cluster (bare metal)</text>
   <text x="576" y="228" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#1C1A16">Fine-grained verifier · risk-aware scoring</text>
   <text x="576" y="258" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#1C1A16">L1 Hardware → L4 User Applications</text>
   <text x="576" y="288" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#1C1A16">Durability · invariants · cleanup · side effects</text>

@@ -25,9 +25,9 @@ Canonical examples in this repo:
 | Path | Role |
 |------|------|
 | `tasks/hello-world` | Minimal Docker task — start here |
-| `tasks/ipmi-node-power-recovery` | L1 / Easy / CloudLab |
-| `tasks/cassandra-nic-split-brain` | L2 / Medium / CloudLab |
-| `tasks/cassandra-dead-node-removal` | L3 / Medium / CloudLab |
+| `tasks/ipmi-node-power-recovery` | L1 / Easy / BM Cluster |
+| `tasks/cassandra-nic-split-brain` | L2 / Medium / BM Cluster |
+| `tasks/cassandra-dead-node-removal` | L3 / Medium / BM Cluster |
 | `tasks/vm-ceph-bootstrap` | L3 / Hard / VM cluster |
 | `tasks/db-wal-recovery` | L4 / Hard / Container |
 

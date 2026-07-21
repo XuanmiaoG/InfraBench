@@ -118,7 +118,7 @@ The agent SSHes into the first node (`primary`). Nodes resolve each other by hos
 2. **Layered stack** — situate the failure in L1 hardware → L2 local systems → L3 distributed → L4 user applications when possible.
 3. **Honest verifiers** — prefer multi-check `reward.json` over a single opaque pass/fail; resist reward hacking.
 4. **Clear instructions** — `instruction.md` states the goal and constraints without leaking the root cause unless that is part of the scenario.
-5. **Reproducible environment** — pin packages / images; document CloudLab profiles or base images in a short task README if needed.
+5. **Reproducible environment** — pin packages / images; document BM Cluster / CloudLab profiles or base images in a short task README if needed.
 
 ## Submission checklist
 
