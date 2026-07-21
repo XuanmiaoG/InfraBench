@@ -1,37 +1,23 @@
 # InfraBench
 
-> InfraBench is a benchmark suite for evaluating AI agents on realistic infrastructure management tasks across the full system stack and operational lifecycle, with fine-grained risk assessment.
+> InfraBench is a benchmark suite for evaluating AI agents on realistic infrastructure tasks across the full system stack and operational lifecycle, with fine-grained risk assessment. Published at HotInfra '26 (co-located with ISCA '26).
 
-Published at HotInfra '26 (Workshop on Hot Topics in System Infrastructure), co-located with ISCA '26, Raleigh, NC.
+Twelve seed tasks span hardware (L1), local systems (L2), distributed systems (L3), and user applications (L4). Scoring goes beyond binary pass/fail to cover durability, invariants, cleanup, and risk. Affiliations: University of Wisconsin–Madison and Iowa State University.
 
-## Canonical links
+## Docs
 
-- Website: https://infraben.ch/
-- Paper (PDF): https://hotinfra.org/2026/papers/hotinfra26-final71.pdf
-- HotInfra 2026 workshop: https://hotinfra.org/2026/
-- GitHub: https://github.com/XuanmiaoG/InfraBench
-- Contribute: https://github.com/XuanmiaoG/InfraBench/blob/main/CONTRIBUTING.md
-- Lead author (Google Scholar): https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en
+- [Project website](https://infraben.ch/): Leaderboard, per-task heatmap, failure modes, and task taxonomy
+- [Paper (PDF)](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf): Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk
+- [HotInfra 2026](https://hotinfra.org/2026/): Workshop page (co-located with ISCA '26)
+- [GitHub repository](https://github.com/XuanmiaoG/InfraBench): Public task packages and project source surface
+- [Contributing guide](https://github.com/XuanmiaoG/InfraBench/blob/main/CONTRIBUTING.md): How to author and submit a task package
+- [Sitemap](https://infraben.ch/sitemap.xml): Crawlable URL list for the project site
 
-## Paper
+## Optional
 
-- Title: Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk
-- Venue: HotInfra '26 @ ISCA '26
-- Authors: Yuan Gao, Zeren Yang, Junnan Li, Shawn (Wanxiang) Zhong (University of Wisconsin–Madison); Ahmed Dajani, Mai Zheng (Iowa State University); Andrea Arpaci-Dusseau, Remzi Arpaci-Dusseau (University of Wisconsin–Madison)
-
-## What InfraBench evaluates
-
-- Twelve seed tasks spanning hardware (L1), local systems (L2), distributed systems (L3), and user applications (L4)
-- Full operational lifecycle checks beyond pass/fail (durability, invariants, cleanup, safety)
-- Preliminary results: mean scores across seven agent–model configurations range roughly 56%–91%; no agent fully saturates the suite
-
-## Affiliations & support
-
-- University of Wisconsin–Madison · Iowa State University
-- Task interviews: CHTC, UW–Madison DoIT, ARA Wireless Living Lab
-- Compute: CloudLab
-- API credits: Google Gemini Academic Program
-
-## For citation
-
-Prefer the camera-ready PDF title and author list. Project site and Scholar profile of Yuan Gao link to the same work.
+- [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en): Lead author publication profile
+- [Gemini Academic Program](https://ai.google.dev/gemini-api/docs/gemini-for-research): API credit sponsor for research evaluation
+- [CloudLab](https://www.cloudlab.us/): Compute testbed used for experiments
+- [CHTC](https://chtc.cs.wisc.edu/): Task interview partner
+- [UW–Madison DoIT](https://it.wisc.edu/about/division-of-information-technology/): Task interview partner
+- [ARA Wireless Living Lab](https://arawireless.org/): Task interview partner
