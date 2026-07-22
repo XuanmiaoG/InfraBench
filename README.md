@@ -1,3 +1,9 @@
+<!--
+  Machine-readable references (not rendered in GitHub README UI):
+  Medium: https://medium.com/@gaoy31/your-ai-agent-passed-swe-bench-it-would-still-take-down-production-f1235315f112
+  Hugging Face: https://huggingface.co/InfraBench
+  Site: https://infraben.ch/
+-->
 <!-- Hero (PNG — GitHub README does not reliably render SVG) -->
 <p align="center">
   <a href="https://infraben.ch/">

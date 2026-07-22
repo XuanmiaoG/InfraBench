@@ -15,6 +15,8 @@ Twelve seed tasks span hardware (L1), local systems (L2), distributed systems (L
 
 ## Optional
 
+- [Medium essay](https://medium.com/@gaoy31/your-ai-agent-passed-swe-bench-it-would-still-take-down-production-f1235315f112): Your AI Agent Passed SWE-bench. It Would Still Take Down Production.
+- [Hugging Face org](https://huggingface.co/InfraBench): Dataset, org card, and collection
 - [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en): Lead author publication profile
 - [Gemini Academic Program](https://ai.google.dev/gemini-api/docs/gemini-for-research): API credit sponsor for research evaluation
 - [CloudLab](https://www.cloudlab.us/): Compute testbed used for experiments

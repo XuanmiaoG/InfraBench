@@ -1,0 +1,16 @@
+# InfraBench
+
+> InfraBench evaluates AI agents on realistic infrastructure incidents across the full stack and operational lifecycle — durability, invariants, cleanup, and risk — not just binary pass/fail.
+
+## Docs
+
+- [Project website](https://infraben.ch/): Leaderboard, per-task heatmap, failure modes, and task taxonomy
+- [Paper (PDF)](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf): Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk
+- [GitHub repository](https://github.com/XuanmiaoG/InfraBench): Public task packages
+- [Hugging Face org](https://huggingface.co/InfraBench): Dataset and org card
+
+## Optional
+
+- [Medium essay](https://medium.com/@gaoy31/your-ai-agent-passed-swe-bench-it-would-still-take-down-production-f1235315f112): Your AI Agent Passed SWE-bench. It Would Still Take Down Production.
+- [HotInfra 2026](https://hotinfra.org/2026/): Workshop page (co-located with ISCA '26)
+- [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en): Lead author publication profile
