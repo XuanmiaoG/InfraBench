@@ -4,10 +4,15 @@
 
 ## Docs
 
-- [Project website](https://infraben.ch/): Leaderboard, per-task heatmap, failure modes, and task taxonomy
-- [Paper (PDF)](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf): Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk
-- [GitHub repository](https://github.com/XuanmiaoG/InfraBench): Public task packages
-- [Hugging Face org](https://huggingface.co/InfraBench): Dataset and org card
+- [Project website](https://infraben.ch/): Overview, task heatmap, failure modes, and taxonomy
+- [Leaderboard](https://infraben.ch/leaderboard): Full agent/model rankings
+- [Documentation](https://infraben.ch/docs): Introduction, contribute, and submit-a-task guides
+- [Introduction](https://infraben.ch/docs/introduction): What InfraBench evaluates
+- [Contribute](https://infraben.ch/docs/contribute): How to contribute task packages
+- [Submit a task](https://infraben.ch/docs/submit-task): Task layout and PR checklist
+- [Paper (PDF)](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf)
+- [GitHub](https://github.com/XuanmiaoG/InfraBench)
+- [Hugging Face org](https://huggingface.co/InfraBench)
 
 ## Optional
 

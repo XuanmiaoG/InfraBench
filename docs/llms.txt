@@ -6,11 +6,16 @@ Twelve seed tasks span hardware (L1), local systems (L2), distributed systems (L
 
 ## Docs
 
-- [Project website](https://infraben.ch/): Leaderboard, per-task heatmap, failure modes, and task taxonomy
+- [Project website](https://infraben.ch/): Overview, task heatmap, failure modes, and taxonomy
+- [Leaderboard](https://infraben.ch/leaderboard): Full agent/model rankings (mean effective score)
+- [Documentation](https://infraben.ch/docs): Introduction, contribute, and submit-a-task guides
+- [Introduction](https://infraben.ch/docs/introduction): What InfraBench evaluates and how scoring works
+- [Contribute](https://infraben.ch/docs/contribute): How to contribute task packages
+- [Submit a task](https://infraben.ch/docs/submit-task): Task layout, verifier contract, PR checklist
 - [Paper (PDF)](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf): Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk
 - [HotInfra 2026](https://hotinfra.org/2026/): Workshop page (co-located with ISCA '26)
 - [GitHub repository](https://github.com/XuanmiaoG/InfraBench): Public task packages and project source surface
-- [Contributing guide](https://github.com/XuanmiaoG/InfraBench/blob/main/CONTRIBUTING.md): How to author and submit a task package
+- [Contributing guide (GitHub)](https://github.com/XuanmiaoG/InfraBench/blob/main/CONTRIBUTING.md): Authoritative task-package source text
 - [Sitemap](https://infraben.ch/sitemap.xml): Crawlable URL list for the project site
 
 ## Optional
